@@ -29,12 +29,23 @@ $options = [
 try {
     $pdo = new PDO($dsn, $DB_USER, $DB_PASS, $options);
 } catch (PDOException $e) {
-    // Tampilkan pesan error yang jelas untuk debugging lokal
+    // Pesan error aman — tidak membocorkan kredensial ke pengguna
     http_response_code(500);
-    echo '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Database Error</title></head><body style="font-family:sans-serif;padding:40px">';
-    echo '<h2>Gagal terhubung ke database</h2>';
-    echo '<p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
-    echo '<p>Pastikan MySQL Laragon berjalan dan database <code>' . htmlspecialchars($DB_NAME, ENT_QUOTES, 'UTF-8') . '</code> sudah di-import dari <code>sim_mahasiswa.sql</code>.</p>';
-    echo '</body></html>';
+    error_log('[DB ERROR] ' . $e->getMessage());
+
+    echo '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8">';
+    echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+    echo '<title>Database Error — SIM Mahasiswa UMB</title>';
+    echo '<script src="https://cdn.tailwindcss.com"></script></head>';
+    echo '<body class="bg-slate-100 flex items-center justify-center min-h-screen">';
+    echo '<div class="bg-white rounded-2xl shadow-card p-8 max-w-md text-center border border-slate-200">';
+    echo '<div class="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-5">';
+    echo '<i class="fa-solid fa-database text-2xl"></i></div>';
+    echo '<h1 class="font-bold text-xl text-slate-900 mb-2">Gagal Terhubung ke Database</h1>';
+    echo '<p class="text-slate-500 text-sm leading-relaxed mb-4">';
+    echo 'Terjadi gangguan saat menghubungi basis data sistem. ';
+    echo 'Silakan coba lagi beberapa saat lagi atau hubungi administrator.</p>';
+    echo '<p class="text-xs text-slate-400">Detail teknis telah dicatat pada log server.</p>';
+    echo '</div></body></html>';
     exit;
 }

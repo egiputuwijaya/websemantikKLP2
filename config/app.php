@@ -7,11 +7,11 @@
  */
 
 // Basis URL proyek di web server (Laragon).
-// Jika diakses via http://localhost/websemantikKLP2/ → nilai berikut.
+// Contoh: http://localhost/websemantikKLP2/ → '/websemantikKLP2'
 // Ubah sesuai lingkungan deploy jika berbeda.
 define('BASE_URL', '/websemantikKLP2');
 
-// Path root proyek di server file (opsional, untuk upload nanti)
+// Path root proyek di server file (untuk upload, include, dll.)
 define('APP_ROOT', dirname(__DIR__));
 
 // Informasi aplikasi global
