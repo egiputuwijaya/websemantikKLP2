@@ -1,141 +1,203 @@
-# Checklist Status Pengerjaan SIM Mahasiswa (PHP Native)
+# SIM Mahasiswa — Universitas Muhammadiyah Bengkulu (UMB)
 
-## FASE 0: Perancangan Basis Data & Arsitektur Sistem
-- [x] Analisis Skema SQL `sim_mahasiswa` & Pembuatan ERD (Mermaid)[cite: 1]
-- [x] Perancangan Struktur Folder PHP Native (Pemisahan Public, Auth, & Admin)
+Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + **Tailwind CSS**.
 
-## FASE 1: Halaman Publik (Landing Page)
+- **Database:** `sim_mahasiswa`
+- **Basis URL:** `/websemantikKLP2` (Laragon)
+- **Stack:** PHP 8.x, PDO, MySQL/MariaDB, Tailwind CSS (CDN), FontAwesome 6
+
+---
+
+## Checklist Status Pengerjaan
+
+### FASE 0: Perancangan Basis Data & Arsitektur Sistem
+- [x] Analisis skema SQL `sim_mahasiswa` & pembuatan ERD
+- [x] Perancangan struktur folder PHP Native (pemisahan Public, Auth, & Admin)
+- [x] File `sim_mahasiswa.sql` (struktur + data awal + view)
+
+### FASE 1: Halaman Publik (Landing Page)
 - [x] Layout Header, Navbar, & Footer Publik (`layouts/public/`)
 - [x] Landing Page Utama Kampus & Counter Statistik (`index.php`)
 - [x] Halaman Informasi Fakultas & Program Studi (`fakultas-prodi.php`)
 
-## FASE 2: Core Engine & Sistem Autentikasi
+### FASE 2: Core Engine & Sistem Autentikasi
 - [x] Konfigurasi Database PDO & App Setting (`config/database.php`, `config/app.php`)
 - [x] Helper Function, Middleware Role, & Audit System (`app/helper.php`, `app/auth.php`, `app/audit.php`)
 - [x] Form Login, Verifikasi Hash, Session & Logout (`auth/login.php`, `auth/process.php`, `auth/logout.php`)
 
-## FASE 3: Layout Admin, Dashboard & Modul Utama (Mahasiswa)
+### FASE 3: Layout Admin, Dashboard & Modul Mahasiswa
 - [x] Topbar, Sidebar Dinamis Berdasarkan Role, & Footer Admin (`layouts/admin/`)
 - [x] Dashboard Internal & Ringkasan Statistik (`admin/dashboard/index.php`)
 - [x] Modul CRUD Data Mahasiswa & Auto-Create Akun Login (`admin/mahasiswa/`)
 
----
+### FASE 4: Pengelolaan Data Master
+- [ ] Modul Kelola Profil Universitas (`admin/universitas/`)
+- [ ] Modul Kelola Fakultas (`admin/fakultas/`)
+- [ ] Modul Kelola Program Studi (`admin/program_studi/`)
 
-## FASE 4: Pengelolaan Data Master (Master Data Management)
-- [ ] Modul Kelola Profil Universitas (`admin/universitas/`)[cite: 1]
-- [ ] Modul Kelola Fakultas (`admin/fakultas/`)[cite: 1]
-- [ ] Modul Kelola Program Studi (`admin/program_studi/`)[cite: 1]
-
-## FASE 5: Pengelolaan Pengguna & Profil (User Management)
-- [ ] Modul Manajemen User / Pengguna Aplikasi (`admin/pengguna/`)[cite: 1]
+### FASE 5: Pengelolaan Pengguna & Hak Akses
+- [ ] Modul Manajemen User / Pengguna Aplikasi (`admin/pengguna/`)
 - [ ] Modul Pengaturan Akun Pribadi & Ganti Password (`admin/profil/`)
 
-## FASE 6: Portal Mandiri Mahasiswa (Self-Service)
-- [ ] Halaman Profil Saya & Update Data Kontak Mahasiswa (`admin/profil-saya/`)[cite: 1]
+### FASE 6: Portal Mandiri Mahasiswa (Self-Service)
+- [ ] Halaman Profil Saya & Update Data Kontak Mahasiswa (`admin/profil-saya/`)
 
-## FASE 7: Monitoring & Laporan Executive
-- [ ] Modul Viewer Audit Log System (`admin/audit_log/`)[cite: 1]
-- [ ] Modul Laporan Mahasiswa, Rekapitulasi & Export Excel/PDF (`admin/laporan/`)[cite: 1]
+### FASE 7: Monitoring & Laporan
+- [ ] Modul Viewer Audit Log System (`admin/audit_log/`)
+- [ ] Modul Laporan Mahasiswa, Rekapitulasi & Export Excel/PDF (`admin/laporan/`)
 
-## FASE 8: Keamanan & Pengujian System
+### FASE 8: Keamanan & Pengujian Sistem
 - [ ] Hardening `.htaccess` pada folder `uploads/`
 - [ ] Implementasi Token Proteksi CSRF pada Form
 - [ ] Testing Pengujian Hak Akses (RBAC) & Security Audit
 
-# Roadmap Pengembangan SIM Mahasiswa (PHP Native)
-
-Dokumen ini berisi daftar modul, tugas teknis, dan spesifikasi pengerjaan yang harus diselesaikan oleh tim pengembang untuk melengkapi Sistem Informasi Manajemen Mahasiswa.
-
 ---
 
-## FASE 1: Modul Pengelolaan Data Master (Master Data Management)
+## Roadmap Pengembangan (Detail Modul)
 
-### 1.1. Modul Profil Universitas (`admin/universitas/`)
-* **Akses Role:** Admin (Role 1)
-* **Tabel Terkait:** `universitas`
-* **Deliverables:**
+### FASE 4: Pengelolaan Data Master
+
+#### 4.1 Modul Profil Universitas (`admin/universitas/`)
+- **Akses Role:** Admin (Role 1)
+- **Tabel Terkait:** `universitas`
+- **Deliverables:**
   - [ ] `index.php`: Tampilan informasi profil perguruan tinggi.
-  - [ ] `edit.php` & `process.php`: Form perbaikan data kampus (nama universitas, slogan, alamat, kota, provinsi, kode pos, email, telepon, dan website).
+  - [ ] `edit.php` & `process.php`: Form perbaikan data kampus (nama universitas, slogan, alamat, kota, provinsi, kode pos, email, telepon, website).
   - [ ] Integrasi pencatatan `audit_log` untuk aksi `UPDATE` data universitas.
 
-### 1.2. Modul Kelola Fakultas (`admin/fakultas/`)
-* **Akses Role:** Admin (Role 1)
-* **Tabel Terkait:** `fakultas`, `universitas`
-* **Deliverables:**
+#### 4.2 Modul Kelola Fakultas (`admin/fakultas/`)
+- **Akses Role:** Admin (Role 1)
+- **Tabel Terkait:** `fakultas`, `universitas`
+- **Deliverables:**
   - [ ] `index.php`: Tabel daftar fakultas dilengkapi jumlah program studi di dalamnya.
   - [ ] `create.php` & `edit.php`: Form penambahan dan pengubahan data fakultas (`kode_fakultas`, `nama_fakultas`).
   - [ ] `process.php`: Handler penambahan, pembaruan, dan penghapusan fakultas dengan validasi kunci unik `uk_fakultas_univ_kode`.
 
-### 1.3. Modul Kelola Program Studi (`admin/program_studi/`)
-* **Akses Role:** Admin (Role 1)
-* **Tabel Terkait:** `program_studi`, `fakultas`
-* **Deliverables:**
+#### 4.3 Modul Kelola Program Studi (`admin/program_studi/`)
+- **Akses Role:** Admin (Role 1)
+- **Tabel Terkait:** `program_studi`, `fakultas`
+- **Deliverables:**
   - [ ] `index.php`: Tabel daftar program studi dengan filter berdasarkan fakultas.
   - [ ] `create.php` & `edit.php`: Form pendaftaran dan pengubahan prodi (`kode_program_studi`, `nama_program_studi`, `jenjang`, `status_aktif`).
   - [ ] `process.php`: Handler transaksi data prodi beserta validasi keunikan kombinasi `id_fakultas` & `kode_program_studi`.
 
 ---
 
-## FASE 2: Modul Pengelolaan Pengguna & Hak Akses (User Management)
+### FASE 5: Pengelolaan Pengguna & Hak Akses
 
-### 2.1. Modul Manajemen User (`admin/pengguna/`)
-* **Akses Role:** Admin (Role 1)
-* **Tabel Terkait:** `pengguna`, `roles`, `universitas`, `fakultas`, `program_studi`
-* **Deliverables:**
+#### 5.1 Modul Manajemen User (`admin/pengguna/`)
+- **Akses Role:** Admin (Role 1)
+- **Tabel Terkait:** `pengguna`, `roles`, `universitas`, `fakultas`, `program_studi`
+- **Deliverables:**
   - [ ] `index.php`: Tabel daftar seluruh pengguna aplikasi dengan filter berdasarkan Role, Fakultas, dan Prodi.
   - [ ] `create.php`: Form tambah user manual (Operator Prodi, Dekanat, Rektorat, Admin, Mahasiswa).
-  - [ ] `edit.php`: Form ubah role, penetapan wilayah kewenangan (id_fakultas / id_program_studi), serta ubah status aktif/tidak aktif.
+  - [ ] `edit.php`: Form ubah role, penetapan wilayah kewenangan (`id_fakultas` / `id_program_studi`), serta ubah status aktif/tidak aktif.
   - [ ] `reset-password.php`: Fitur reset password user oleh admin menggunakan `password_hash()`.
-  - [ ] `process.php`: Handler simpan data user dan pencatatan audit log `INSERT`/`UPDATE`/`DELETE`.
+  - [ ] `process.php`: Handler simpan data user dan pencatatan `audit_log` untuk aksi `INSERT`/`UPDATE`/`DELETE`.
 
-### 2.2. Modul Pengaturan Akun Pribadi (`admin/profil/`)
-* **Akses Role:** Semua Role (1, 2, 3, 4, 5)
-* **Tabel Terkait:** `pengguna`
-* **Deliverables:**
+#### 5.2 Modul Pengaturan Akun Pribadi (`admin/profil/`)
+- **Akses Role:** Semua Role (1, 2, 3, 4, 5)
+- **Tabel Terkait:** `pengguna`
+- **Deliverables:**
   - [ ] `index.php`: Form ubah informasi pribadi (Nama Lengkap, Email, No HP).
   - [ ] `ganti-password.php`: Form ubah password sendiri (wajib memasukkan password lama, password baru, dan konfirmasi password baru).
 
 ---
 
-## FASE 3: Modul Portal Mahasiswa (Self-Service)
+### FASE 6: Portal Mandiri Mahasiswa (Self-Service)
 
-### 3.1. Halaman Profil Mahasiswa (`admin/profil-saya/`)
-* **Akses Role:** Mahasiswa (Role 5)
-* **Tabel / View Terkait:** View `v_profil_mahasiswa`, tabel `mahasiswa`
-* **Deliverables:**
-  - [ ] `index.php`: Tampilan kartu identitas/profil mahasiswa lengkap (NPM, Nama, TTL, Jenis Kelamin, Tanggal Masuk, Prodi, Fakultas, Universitas, dan Status Akademik).
+#### 6.1 Halaman Profil Mahasiswa (`admin/profil-saya/`)
+- **Akses Role:** Mahasiswa (Role 5)
+- **Tabel / View Terkait:** View `v_profil_mahasiswa`, tabel `mahasiswa`
+- **Deliverables:**
+  - [ ] `index.php`: Tampilan kartu identitas/profil mahasiswa lengkap (NPM, Nama, TTL, Jenis Kelamin, Tanggal Masuk, Prodi, Fakultas, Universitas, Status Akademik).
   - [ ] `edit.php` & `process.php`: Form pembaruan mandiri data kontak/alamat oleh mahasiswa (dengan pembatasan tidak dapat mengubah NPM, Prodi, atau Status Akademik).
 
 ---
 
-## FASE 4: Modul Monitoring & Laporan (Executive View)
+### FASE 7: Monitoring & Laporan
 
-### 4.1. Modul Audit Log System (`admin/audit_log/`)
-* **Akses Role:** Admin (Role 1)
-* **Tabel Terkait:** `audit_log`, `pengguna`
-* **Deliverables:**
+#### 7.1 Modul Audit Log System (`admin/audit_log/`)
+- **Akses Role:** Admin (Role 1)
+- **Tabel Terkait:** `audit_log`, `pengguna`
+- **Deliverables:**
   - [ ] `index.php`: Tabel riwayat aktivitas sistem.
   - [ ] Fitur Filter: Berdasarkan rentang tanggal (`waktu`), jenis aksi (`LOGIN`, `LOGOUT`, `INSERT`, `UPDATE`, `DELETE`), dan nama pengguna.
-  - [ ] `detail.php` / Modal Detail: Viewer untuk membandingkan isi kolom `data_lama` dan `data_baru` (JSON format).
+  - [ ] `detail.php` / Modal Detail: Viewer untuk membandingkan isi kolom `data_lama` dan `data_baru` (format JSON).
 
-### 4.2. Modul Laporan Data Mahasiswa (`admin/laporan/`)
-* **Akses Role:** Dekanat (Role 3), Rektorat (Role 4), Operator Prodi (Role 2)
-* **Tabel / View Terkait:** View `v_mahasiswa_per_prodi`
-* **Deliverables:**
-  - [ ] `index.php`: Halaman rekapitulasi data mahasiswa berbasis grafik & tabel ringkasan (Jumlah Mahasiswa per Status: Aktif, Cuti, Lulus, DO).
-  - [ ] `export-excel.php`: Skrip eksport daftar mahasiswa terfilter ke format Spreadsheet/Excel (`.csv` / `.xlsx`).
+#### 7.2 Modul Laporan Data Mahasiswa (`admin/laporan/`)
+- **Akses Role:** Operator Prodi (Role 2), Dekanat (Role 3), Rektorat (Role 4)
+- **Tabel / View Terkait:** View `v_mahasiswa_per_prodi`
+- **Deliverables:**
+  - [ ] `index.php`: Halaman rekapitulasi data mahasiswa berbasis grafik & tabel ringkasan (Jumlah Mahasiswa per Status: Aktif, Cuti, Lulus, Drop Out).
+  - [ ] `export-excel.php`: Skrip ekspor daftar mahasiswa terfilter ke format Spreadsheet/Excel (`.csv` / `.xlsx`).
   - [ ] `cetak-pdf.php`: Layout cetak laporan versi PDF / Print-friendly.
 
 ---
 
-## FASE 5: Pengamanan, Optimasi & Deployment
+### FASE 8: Keamanan, Optimasi & Deployment
 
-### 5.1. Hardening Keamanan
+#### 8.1 Hardening Keamanan
 - [ ] Proteksi folder `uploads/` dengan file `.htaccess` agar berkas yang diunggah tidak dapat dieksekusi sebagai script PHP.
 - [ ] Implementasi token CSRF (`$_SESSION['csrf_token']`) pada seluruh form penambahan, pengubahan, dan penghapusan data.
 - [ ] Validasi tipe dan ukuran file upload (misal: foto profil maksimal 2MB, ekstensi `.jpg`, `.jpeg`, `.png`).
 
-### 5.2. Testing & Quality Assurance
+#### 8.2 Testing & Quality Assurance
 - [ ] Testing Hak Akses (RBAC): Memastikan user dengan Role 5 (Mahasiswa) atau Role 2 (Operator) tidak bisa membobol URL halaman milik Admin (Role 1).
 - [ ] Testing Integritas Database: Memastikan transaksi `PDO Transaction` berfungsi saat terjadi pembatalan (*rollback*) ketika pembuatan akun user gagal.
 - [ ] Checking SQL Injection & XSS: Memastikan seluruh input menggunakan *Prepared Statements* dan seluruh variabel output dilapisi `htmlspecialchars()`.
+
+---
+
+## Kredensial Default (Development)
+
+| Username | Password | Role |
+|---|---|---|
+| `Admin` | `Admin123` | 1 — Admin |
+| `operator.ti` | `operator123` | 2 — Operator Program Studi |
+| `dekanat.ft` | `dekanat123` | 3 — Dekanat |
+
+> Akun lain (`rektorat`, `20260001`) masih memakai hash placeholder dari dump SQL — perlu digenerate ulang sebelum dipakai login.
+
+---
+
+## Struktur Folder
+
+```
+sim-mahasiswa/
+├── config/
+│   ├── database.php          # Koneksi PDO
+│   └── app.php               # BASE_URL, session, helper url()
+│
+├── app/
+│   ├── auth.php              # check_auth(), check_role(), require_role()
+│   ├── helper.php            # sanitize(), redirect(), flash message
+│   └── audit.php             # log_activity() → tabel audit_log
+│
+├── layouts/
+│   ├── public/               # header, navbar, footer halaman publik
+│   └── admin/                # header, topbar, sidebar, footer area admin
+│
+├── auth/                     # login, process, logout
+├── admin/
+│   ├── dashboard/            # Dashboard dinamis per role
+│   └── mahasiswa/            # CRUD mahasiswa (index, create, edit, detail, process)
+│
+├── assets/                   # css, js, images
+├── uploads/                  # file upload (foto profil, dll.)
+├── index.php                 # Landing page publik
+├── fakultas-prodi.php        # Daftar fakultas & program studi (publik)
+└── sim_mahasiswa.sql         # Dump database
+```
+
+---
+
+## Roles
+
+| ID | Kode | Nama | Kewenangan Utama |
+|---|---|---|---|
+| 1 | `ADMIN` | Admin | Kelola seluruh data & konfigurasi |
+| 2 | `OPERATOR_PRODI` | Operator Prodi | Kelola mahasiswa pada prodi miliknya |
+| 3 | `DEKANAT` | Dekanat | Lihat data mahasiswa fakultasnya |
+| 4 | `REKTORAT` | Rektorat | Lihat data mahasiswa tingkat universitas |
+| 5 | `MAHASISWA` | Mahasiswa | Lihat profil/data pribadi sendiri |
