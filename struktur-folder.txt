@@ -1,0 +1,72 @@
+sim-mahasiswa/
+├── config/
+│   ├── database.php          # Koneksi database MySQL/PDO
+│   └── app.php               # Konfigurasi BASE_URL & setting global
+│
+├── app/                      # Logic backend, middleware & helper
+│   ├── auth.php              # Proteksi session & cek role pengguna
+│   ├── helper.php            # Fungsi pendukung (sanitize, alert, format tanggal)
+│   └── audit.php             # Fungsi pencatatan otomatis ke tabel audit_log
+│
+├── assets/                   # Aset statis (CSS, JS, Gambar)
+│   ├── css/
+│   ├── js/
+│   └── images/               # Logo UMB, banner landing page, dll.
+│
+├── layouts/                  # Template UI yang reusable
+│   ├── public/               # Layout khusus Halaman Publik
+│   │   ├── header.php
+│   │   ├── navbar.php        # Navigasi publik (Home, Profil, Prodi, Tombol Login)
+│   │   └── footer.php
+│   │
+│   └── admin/                # Layout khusus Halaman Internal/Dashboard
+│       ├── header.php
+│       ├── topbar.php        # User profile & logout
+│       ├── sidebar.php       # Menu dinamis sesuai id_role
+│       └── footer.php
+│
+│── # ----------------------------------------------------
+│── # 1. HALAMAN PUBLIK (Dapat diakses TANPA LOGIN)
+│── # ----------------------------------------------------
+├── index.php                 # Landing Page utama (Portal Informasi Kampus)
+├── fakultas-prodi.php        # Informasi Fakultas & Prodi (Mengambil data DB)
+│
+│── # ----------------------------------------------------
+│── # 2. HALAMAN AUTENTIKASI
+│── # ----------------------------------------------------
+├── auth/
+│   ├── login.php             # Form Login Pengguna
+│   ├── process.php           # Handler validasi password_hash & pembuat Session
+│   └── logout.php            # Handler Logout & penulisan audit_log
+│
+│── # ----------------------------------------------------
+│── # 3. HALAMAN INTERNAL / DASHBOARD (WAJIB LOGIN)
+│── # ----------------------------------------------------
+├── admin/                    # Area terproteksi (Back-Office)
+│   ├── dashboard/
+│   │   └── index.php         # Dashboard dinamis sesuai role yang login
+│   │
+│   ├── mahasiswa/            # Kelola data Mahasiswa (Admin & Operator Prodi)
+│   │   ├── index.php
+│   │   ├── create.php
+│   │   ├── edit.php
+│   │   └── process.php
+│   │
+│   ├── pengguna/             # Kelola User / Akun (Khusus Admin)
+│   │   ├── index.php
+│   │   ├── create.php
+│   │   └── process.php
+│   │
+│   ├── fakultas/             # Kelola Fakultas
+│   │   └── index.php
+│   │
+│   ├── program_studi/        # Kelola Program Studi
+│   │   └── index.php
+│   │
+│   ├── profil-saya/          # Khusus Mahasiswa melihat profil sendiri
+│   │   └── index.php
+│   │
+│   └── audit_log/            # Monitoring Log Aktivitas (Khusus Admin)
+│       └── index.php
+│
+└── uploads/                  # Tempat menyimpan file upload (foto profil, dll.)
