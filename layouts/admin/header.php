@@ -88,13 +88,52 @@ $namaRole    = $current['nama_role'] ?? 'Pengguna';
             #sidebar.open { transform: translateX(0); }
         }
         .sidebar-link.active {
-            background: linear-gradient(90deg, rgba(34,197,94,0.18), rgba(30,64,175,0.12));
-            color: #fff;
-            border-left: 3px solid #22c55e;
+            background-color: #eff6ff; /* academic-50 / blue-50 */
+            color: #2563eb; /* academic-600 */
         }
-        .sidebar-link.active i { color: #86efac; }
+        .sidebar-link.active i { color: #2563eb; }
+        
+        /* Collapsible sidebar transition */
+        #sidebar { transition: width 0.3s ease, transform 0.3s ease; }
+        #main-content { transition: padding-left 0.3s ease; }
+        
+        /* Hide text when collapsed */
+        #sidebar.collapsed .sidebar-text { display: none; }
+        #sidebar.collapsed .sidebar-header { justify-content: center; padding-left: 0; padding-right: 0; }
+        #sidebar.collapsed .sidebar-logo { margin: 0 auto; }
+        #sidebar.collapsed .sidebar-link { justify-content: center; padding-left: 0; padding-right: 0; }
+        #sidebar.collapsed .sidebar-profile { display: none; }
+        
         input:focus, select:focus, textarea:focus { outline: none; }
         .table-hover tbody tr:hover { background: #f8fafc; }
+        
+        /* Custom Select Styles */
+        .custom-select-wrapper { position: relative; user-select: none; width: 100%; }
+        .custom-select-trigger { 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 0.625rem 1rem; font-size: 0.875rem; line-height: 1.25rem; 
+            background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.375rem; 
+            cursor: pointer; transition: all 0.2s; color: #334155; width: 100%; 
+        }
+        .custom-select-trigger:focus, .custom-select-wrapper.open .custom-select-trigger { 
+            background-color: #ffffff; border-color: #3b82f6; outline: none; box-shadow: 0 0 0 2px #dbeafe; 
+        }
+        .custom-select-options { 
+            position: absolute; top: calc(100% + 0.25rem); left: 0; right: 0; z-index: 50; 
+            background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 0.375rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); 
+            max-height: 15rem; overflow-y: auto; 
+            opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .custom-select-wrapper.open .custom-select-options { 
+            opacity: 1; visibility: visible; transform: translateY(0); 
+        }
+        .custom-select-option { 
+            padding: 0.5rem 1rem; font-size: 0.875rem; color: #334155; cursor: pointer; transition: background-color 0.15s; 
+        }
+        .custom-select-option:hover, .custom-select-option.focused { background-color: #eff6ff; color: #1d4ed8; }
+        .custom-select-option.selected { font-weight: 600; background-color: #eff6ff; color: #1d4ed8; display: flex; justify-content: space-between; align-items: center; }
+        .custom-select-option.selected::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; }
     </style>
 </head>
 <body class="min-h-screen text-slate-800">
@@ -108,12 +147,12 @@ $namaRole    = $current['nama_role'] ?? 'Pengguna';
     <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/50 z-30 hidden lg:hidden"></div>
 
     <!-- ===================== KONTEN KANAN ===================== -->
-    <div class="flex-1 flex flex-col min-w-0 lg:pl-64">
+    <div id="main-content" class="flex-1 flex flex-col min-w-0 lg:pl-64">
 
         <!-- ===================== TOPBAR ===================== -->
         <?php require_once __DIR__ . '/topbar.php'; ?>
 
         <!-- ===================== MAIN CONTENT ===================== -->
-        <main class="flex-1 p-4 sm:p-6 lg:p-8">
-            <div class="max-w-7xl mx-auto">
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 w-full">
+            <div class="w-full">
                 <?= render_flash_alert() ?>

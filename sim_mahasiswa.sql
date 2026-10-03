@@ -126,10 +126,10 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `id_role`, `id_universitas`, `id_fakultas`, `id_program_studi`, `username`, `password_hash`, `nama_lengkap`, `email`, `no_hp`, `status_aktif`, `last_login`, `created_at`, `updated_at`) VALUES
-(2, 2, 1, 1, 1, 'operator.ti', '$2y$10$REPLACE_WITH_PASSWORD_HASH', 'Operator Program Studi Teknik Informatika', 'operator.ti@umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:26', '2026-09-28 02:53:26'),
-(3, 3, 1, 1, NULL, 'dekanat.ft', '$2y$10$REPLACE_WITH_PASSWORD_HASH', 'Operator Dekanat Fakultas Teknik', 'dekanat.ft@umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:26', '2026-09-28 02:53:26'),
-(4, 4, 1, NULL, NULL, 'rektorat', '$2y$10$REPLACE_WITH_PASSWORD_HASH', 'Operator Rektorat', 'rektorat@umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:27', '2026-09-28 02:53:27'),
-(5, 5, 1, 1, 1, '20260001', '$2y$10$REPLACE_WITH_PASSWORD_HASH', 'Contoh Mahasiswa', '20260001@student.umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:27', '2026-09-28 02:53:27'),
+(2, 2, 1, 1, 1, 'operator.ti', 'y$pgI38nODeVOD/Q6V6rbSbeMS20hBX.cSbvGF0F7bAvMcP6ttpBClO', 'Operator Program Studi Teknik Informatika', 'operator.ti@umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:26', '2026-09-28 02:53:26'),
+(3, 3, 1, 1, NULL, 'dekanat.ft', 'y$KnpUIRRPiP1v1eJG0WYG8eiAUNy8ZGyniFTEPRGXmozOVqMMrvd.a', 'Operator Dekanat Fakultas Teknik', 'dekanat.ft@umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:26', '2026-09-28 02:53:26'),
+(4, 4, 1, NULL, NULL, 'rektorat', 'yLbe/KZjN0Td7rwCAGmUuAyRofscMPF8Hwh0pdNz.mAFQJcJdkbS', 'Operator Rektorat', 'rektorat@umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:27', '2026-09-28 02:53:27'),
+(5, 5, 1, 1, 1, '20260001', 'y$GgcAbXrYb.FnFsCQjngTdOVaJVa9bvaZDJictL11dt9XnYivqoa.O', 'Contoh Mahasiswa', '20260001@student.umb.ac.id', NULL, 'Aktif', NULL, '2026-09-28 02:53:27', '2026-09-28 02:53:27'),
 (6, 1, 1, NULL, NULL, 'Admin', '$2y$10$HDxCEJy3pjBzPhKOPCyO2ucvD/GObtbU2rx5nf9HgrZ5IleU3xwte', 'Admin SIM Mhs UMB', 'harrywitriyono@umb.ac.id', NULL, 'Aktif', '2026-09-28 10:01:52', '2026-09-28 03:01:42', '2026-09-28 03:01:52');
 
 -- --------------------------------------------------------

@@ -13,18 +13,10 @@
     </div><!-- /.flex-1 -->
 </div><!-- /.flex -->
 
-<!-- Script global admin -->
-<script>
-// Konfirmasi hapus generik (dipakai via data-confirm)
-document.addEventListener('click', function (e) {
-    var el = e.target.closest('[data-confirm]');
-    if (!el) return;
-    var msg = el.getAttribute('data-confirm') || 'Apakah Anda yakin?';
-    if (!confirm(msg)) {
-        e.preventDefault();
-    }
-});
-</script>
+<?php require_once __DIR__ . '/modal_confirm.php'; ?>
+
+<script src="<?= url('assets/js/custom-confirm.js') ?>"></script>
+<script src="<?= url('assets/js/custom-select.js') ?>"></script>
 
 </body>
 </html>

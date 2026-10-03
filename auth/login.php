@@ -91,8 +91,8 @@ $pageTitle = 'Login — ' . APP_NAME;
         <!-- ===== Panel Kiri: Branding ===== -->
         <div class="hidden lg:block text-center lg:text-left">
             <div class="inline-flex items-center gap-3 mb-8">
-                <div class="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur">
-                    <i class="fa-solid fa-graduation-cap text-white text-2xl"></i>
+                <div class="w-16 h-16 rounded-lg bg-white/90 border border-white flex items-center justify-center shadow-lg backdrop-blur p-2">
+                    <img src="<?= url('assets/logoumb.png') ?>" alt="Logo UMB" class="w-full h-full object-contain">
                 </div>
                 <div class="text-left">
                     <p class="font-heading font-extrabold text-white text-lg leading-tight">SIM Mahasiswa</p>
@@ -133,12 +133,12 @@ $pageTitle = 'Login — ' . APP_NAME;
 
         <!-- ===== Panel Kanan: Form Login ===== -->
         <div class="w-full">
-            <div class="bg-white rounded-3xl shadow-soft p-7 sm:p-9 border border-slate-100">
+            <div class="bg-white rounded-lg shadow-soft p-7 sm:p-9 border border-slate-100">
 
                 <!-- Logo mobile -->
                 <div class="lg:hidden flex items-center gap-3 mb-7 justify-center">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-academic-700 to-elegant-700 flex items-center justify-center">
-                        <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
+                    <div class="w-12 h-12 rounded-lg bg-white border border-slate-200 flex items-center justify-center shadow-sm p-1.5">
+                        <img src="<?= url('assets/logoumb.png') ?>" alt="Logo UMB" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <p class="font-heading font-extrabold text-slate-900 text-sm leading-tight">SIM Mahasiswa</p>
@@ -174,7 +174,7 @@ $pageTitle = 'Login — ' . APP_NAME;
                                    maxlength="100"
                                    placeholder="Masukkan username"
                                    value="<?= htmlspecialchars($_POST['username'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder-slate-400 focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                                   class="w-full pl-10 pr-4 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder-slate-400 focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                         </div>
                     </div>
 
@@ -194,7 +194,7 @@ $pageTitle = 'Login — ' . APP_NAME;
                                    name="password"
                                    required
                                    placeholder="Masukkan password"
-                                   class="w-full pl-10 pr-12 py-3 rounded-xl border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder-slate-400 focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                                   class="w-full pl-10 pr-12 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder-slate-400 focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                             <button type="button"
                                     id="btn-toggle-password"
                                     aria-label="Tampilkan password"
@@ -207,7 +207,7 @@ $pageTitle = 'Login — ' . APP_NAME;
 
                     <!-- Tombol Submit -->
                     <button type="submit"
-                            class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-academic-700 to-academic-600 hover:from-academic-800 hover:to-academic-700 text-white font-bold text-sm shadow-soft hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-academic-400 focus:ring-offset-2">
+                            class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-academic-600 hover:bg-academic-700 text-white font-bold text-sm transition-all focus:outline-none focus:ring-4 focus:ring-academic-200">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         Masuk ke Sistem
                     </button>

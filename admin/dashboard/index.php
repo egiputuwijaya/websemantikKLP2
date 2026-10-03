@@ -100,7 +100,7 @@ $activeMenu = 'dashboard';
 <!-- ============================================================
      WELCOME BANNER
      ============================================================ -->
-<section class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-academic-800 via-academic-700 to-elegant-800 shadow-soft mb-8">
+<section class="relative overflow-hidden rounded-md bg-gradient-to-r from-academic-800 via-academic-700 to-elegant-800 shadow-soft mb-8">
     <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-white/10 blur-3xl"></div>
     <div class="absolute -bottom-20 -left-10 w-72 h-72 rounded-full bg-elegant-500/20 blur-3xl"></div>
     <div class="relative px-6 sm:px-8 py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -119,7 +119,7 @@ $activeMenu = 'dashboard';
                 Semoga hari Anda menyenangkan dan produktif.
             </p>
         </div>
-        <div class="glass rounded-2xl px-6 py-5 text-center shrink-0 border border-white/15 bg-white/10 backdrop-blur">
+        <div class="glass rounded-md px-6 py-5 text-center shrink-0 border border-white/15 bg-white/10 backdrop-blur">
             <i class="fa-solid fa-shield-halved text-elegant-300 text-2xl mb-2"></i>
             <p class="text-white font-heading font-bold text-sm">Sesi Aktif</p>
             <p class="text-[11px] text-slate-300 mt-0.5">Login terakhir</p>
@@ -137,51 +137,55 @@ $activeMenu = 'dashboard';
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
 
         <!-- Mahasiswa Aktif -->
-        <div class="card-hover bg-white rounded-2xl shadow-card border border-slate-100 p-6">
-            <div class="flex items-start justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-academic-100 text-academic-700 flex items-center justify-center">
-                    <i class="fa-solid fa-user-check text-lg"></i>
+        <div class="card-hover bg-white rounded-md shadow-sm border border-slate-200 p-5">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded bg-academic-50 text-academic-600 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-user-check text-sm"></i>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg bg-academic-50 text-academic-700 text-[11px] font-bold">Aktif</span>
+                <div class="min-w-0">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide truncate">Mahasiswa Aktif</p>
+                    <p class="font-heading font-bold text-2xl text-slate-900 leading-none mt-1"><?= number_format($totalAktif) ?></p>
+                </div>
             </div>
-            <p class="font-heading font-extrabold text-3xl text-slate-900 leading-none"><?= number_format($totalAktif) ?></p>
-            <p class="text-sm text-slate-500 mt-2 font-medium">Mahasiswa Aktif</p>
         </div>
 
         <!-- Mahasiswa Cuti -->
-        <div class="card-hover bg-white rounded-2xl shadow-card border border-slate-100 p-6">
-            <div class="flex items-start justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center">
-                    <i class="fa-solid fa-clock text-lg"></i>
+        <div class="card-hover bg-white rounded-md shadow-sm border border-slate-200 p-5">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-clock text-sm"></i>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 text-[11px] font-bold">Cuti</span>
+                <div class="min-w-0">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide truncate">Mahasiswa Cuti</p>
+                    <p class="font-heading font-bold text-2xl text-slate-900 leading-none mt-1"><?= number_format($totalCuti) ?></p>
+                </div>
             </div>
-            <p class="font-heading font-extrabold text-3xl text-slate-900 leading-none"><?= number_format($totalCuti) ?></p>
-            <p class="text-sm text-slate-500 mt-2 font-medium">Mahasiswa Cuti</p>
         </div>
 
         <!-- Mahasiswa Lulus -->
-        <div class="card-hover bg-white rounded-2xl shadow-card border border-slate-100 p-6">
-            <div class="flex items-start justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-elegant-100 text-elegant-700 flex items-center justify-center">
-                    <i class="fa-solid fa-graduation-cap text-lg"></i>
+        <div class="card-hover bg-white rounded-md shadow-sm border border-slate-200 p-5">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded bg-elegant-50 text-elegant-600 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-graduation-cap text-sm"></i>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg bg-elegant-50 text-elegant-700 text-[11px] font-bold">Lulus</span>
+                <div class="min-w-0">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide truncate">Mahasiswa Lulus</p>
+                    <p class="font-heading font-bold text-2xl text-slate-900 leading-none mt-1"><?= number_format($totalLulus) ?></p>
+                </div>
             </div>
-            <p class="font-heading font-extrabold text-3xl text-slate-900 leading-none"><?= number_format($totalLulus) ?></p>
-            <p class="text-sm text-slate-500 mt-2 font-medium">Mahasiswa Lulus</p>
         </div>
 
         <!-- Total Prodi -->
-        <div class="card-hover bg-white rounded-2xl shadow-card border border-slate-100 p-6">
-            <div class="flex items-start justify-between mb-4">
-                <div class="w-12 h-12 rounded-xl bg-slate-900 text-white flex items-center justify-center">
-                    <i class="fa-solid fa-book-open-reader text-lg"></i>
+        <div class="card-hover bg-white rounded-md shadow-sm border border-slate-200 p-5">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded bg-slate-50 text-slate-600 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-book-open-reader text-sm"></i>
                 </div>
-                <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-[11px] font-bold">Prodi</span>
+                <div class="min-w-0">
+                    <p class="text-xs font-medium text-slate-500 uppercase tracking-wide truncate">Total Prodi Aktif</p>
+                    <p class="font-heading font-bold text-2xl text-slate-900 leading-none mt-1"><?= number_format($totalProdi) ?></p>
+                </div>
             </div>
-            <p class="font-heading font-extrabold text-3xl text-slate-900 leading-none"><?= number_format($totalProdi) ?></p>
-            <p class="text-sm text-slate-500 mt-2 font-medium">Program Studi Aktif</p>
         </div>
 
     </div>
@@ -193,7 +197,7 @@ $activeMenu = 'dashboard';
 <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
     <!-- Ringkasan umum -->
-    <div class="lg:col-span-2 bg-white rounded-2xl shadow-card border border-slate-100 p-6">
+    <div class="lg:col-span-2 bg-white rounded-md shadow-card border border-slate-100 p-6">
         <div class="flex items-center justify-between mb-5">
             <h3 class="font-heading font-bold text-slate-900 flex items-center gap-2">
                 <span class="w-8 h-8 rounded-lg bg-academic-100 text-academic-700 flex items-center justify-center">
@@ -203,19 +207,19 @@ $activeMenu = 'dashboard';
             </h3>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
+            <div class="p-4 rounded-md bg-slate-50 border border-slate-100 text-center">
                 <p class="font-heading font-bold text-2xl text-slate-900"><?= number_format($totalMhs) ?></p>
                 <p class="text-xs text-slate-500 mt-1">Total Mahasiswa</p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
+            <div class="p-4 rounded-md bg-slate-50 border border-slate-100 text-center">
                 <p class="font-heading font-bold text-2xl text-slate-900"><?= number_format($totalFak) ?></p>
                 <p class="text-xs text-slate-500 mt-1">Fakultas</p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
+            <div class="p-4 rounded-md bg-slate-50 border border-slate-100 text-center">
                 <p class="font-heading font-bold text-2xl text-slate-900"><?= number_format($totalProdi) ?></p>
                 <p class="text-xs text-slate-500 mt-1">Program Studi</p>
             </div>
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
+            <div class="p-4 rounded-md bg-slate-50 border border-slate-100 text-center">
                 <p class="font-heading font-bold text-2xl text-slate-900"><?= number_format($totalAktif) ?></p>
                 <p class="text-xs text-slate-500 mt-1">Status Aktif</p>
             </div>
@@ -223,7 +227,7 @@ $activeMenu = 'dashboard';
     </div>
 
     <!-- Info prodi (khusus operator) atau aksi cepat -->
-    <div class="bg-white rounded-2xl shadow-card border border-slate-100 p-6">
+    <div class="bg-white rounded-md shadow-card border border-slate-100 p-6">
         <h3 class="font-heading font-bold text-slate-900 flex items-center gap-2 mb-5">
             <span class="w-8 h-8 rounded-lg bg-elegant-100 text-elegant-700 flex items-center justify-center">
                 <i class="fa-solid fa-bolt text-sm"></i>
@@ -232,7 +236,7 @@ $activeMenu = 'dashboard';
         </h3>
 
         <?php if ($idRole === 2 && $prodiSaya): ?>
-            <div class="p-4 rounded-xl bg-gradient-to-br from-elegant-50 to-academic-50 border border-elegant-100 mb-4">
+            <div class="p-4 rounded-md bg-gradient-to-br from-elegant-50 to-academic-50 border border-elegant-100 mb-4">
                 <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide mb-1">Program Studi</p>
                 <p class="font-heading font-bold text-slate-900"><?= htmlspecialchars($prodiSaya['nama_program_studi'], ENT_QUOTES, 'UTF-8') ?></p>
                 <p class="text-xs text-academic-700 font-semibold mt-0.5">
@@ -248,14 +252,14 @@ $activeMenu = 'dashboard';
         <div class="space-y-2">
             <?php if (in_array($idRole, [1, 2], true)): ?>
                 <a href="<?= url('admin/mahasiswa/index.php') ?>"
-                   class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-academic-300 hover:bg-academic-50 transition-colors group">
+                   class="flex items-center gap-3 p-3 rounded-md border border-slate-200 hover:border-academic-300 hover:bg-academic-50 transition-colors group">
                     <span class="w-9 h-9 rounded-lg bg-academic-100 text-academic-700 flex items-center justify-center group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-list"></i>
                     </span>
                     <span class="text-sm font-semibold text-slate-700">Kelola Data Mahasiswa</span>
                 </a>
                 <a href="<?= url('admin/mahasiswa/create.php') ?>"
-                   class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-elegant-300 hover:bg-elegant-50 transition-colors group">
+                   class="flex items-center gap-3 p-3 rounded-md border border-slate-200 hover:border-elegant-300 hover:bg-elegant-50 transition-colors group">
                     <span class="w-9 h-9 rounded-lg bg-elegant-100 text-elegant-700 flex items-center justify-center group-hover:scale-105 transition-transform">
                         <i class="fa-solid fa-user-plus"></i>
                     </span>
@@ -263,7 +267,7 @@ $activeMenu = 'dashboard';
                 </a>
             <?php elseif ($idRole === 5): ?>
                 <a href="<?= url('admin/profil-saya/index.php') ?>"
-                   class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-academic-300 hover:bg-academic-50 transition-colors group">
+                   class="flex items-center gap-3 p-3 rounded-md border border-slate-200 hover:border-academic-300 hover:bg-academic-50 transition-colors group">
                     <span class="w-9 h-9 rounded-lg bg-academic-100 text-academic-700 flex items-center justify-center">
                         <i class="fa-solid fa-id-card"></i>
                     </span>
@@ -271,7 +275,7 @@ $activeMenu = 'dashboard';
                 </a>
             <?php else: ?>
                 <a href="<?= url('admin/mahasiswa/index.php') ?>"
-                   class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 hover:border-academic-300 hover:bg-academic-50 transition-colors group">
+                   class="flex items-center gap-3 p-3 rounded-md border border-slate-200 hover:border-academic-300 hover:bg-academic-50 transition-colors group">
                     <span class="w-9 h-9 rounded-lg bg-academic-100 text-academic-700 flex items-center justify-center">
                         <i class="fa-solid fa-file-lines"></i>
                     </span>
@@ -286,7 +290,7 @@ $activeMenu = 'dashboard';
 <!-- ============================================================
      MAHASISWA TERBARU
      ============================================================ -->
-<section class="bg-white rounded-2xl shadow-card border border-slate-100 overflow-hidden">
+<section class="bg-white rounded-md shadow-card border border-slate-100 overflow-hidden">
     <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between gap-4 flex-wrap">
         <h3 class="font-heading font-bold text-slate-900 flex items-center gap-2">
             <span class="w-8 h-8 rounded-lg bg-academic-100 text-academic-700 flex items-center justify-center">

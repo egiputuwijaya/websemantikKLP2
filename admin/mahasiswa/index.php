@@ -13,8 +13,8 @@ require_once dirname(__DIR__, 2) . '/app/helper.php';
 require_once dirname(__DIR__, 2) . '/app/audit.php';
 require_once dirname(__DIR__, 2) . '/app/auth.php';
 
-// Role 1,2,3,4 boleh akses (lihat). Tambah/Edit/Hapus: 1 & 2 saja.
-require_role([1, 2, 3, 4]);
+// Role 1 & 2 boleh akses (lihat, tambah, edit, hapus).
+require_role([1, 2]);
 
 $user   = get_user_login();
 $idRole = (int) ($user['id_role'] ?? 0);
@@ -140,10 +140,7 @@ function status_badge(string $status): string
 }
 
 $pageTitle  = 'Data Mahasiswa';
-$activeMenu = ($idRole === 2) ? 'mahasiswa' : ($idRole === 5 ? 'profil' : 'mahasiswa');
-if (in_array($idRole, [3, 4], true)) {
-    $activeMenu = 'laporan';
-}
+$activeMenu = 'mahasiswa';
 ?>
 
 <?php require_once dirname(__DIR__, 2) . '/layouts/admin/header.php'; ?>
@@ -164,7 +161,7 @@ if (in_array($idRole, [3, 4], true)) {
     </div>
     <?php if ($canManage): ?>
         <a href="<?= url('admin/mahasiswa/create.php') ?>"
-           class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-academic-700 to-academic-600 hover:from-academic-800 text-white text-sm font-bold shadow-soft hover:shadow-lg transition-all">
+           class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-academic-600 text-white text-sm font-semibold rounded-md hover:bg-academic-700 transition-colors focus:ring-4 focus:ring-academic-100">
             <i class="fa-solid fa-user-plus"></i>
             Tambah Mahasiswa
         </a>
@@ -172,7 +169,7 @@ if (in_array($idRole, [3, 4], true)) {
 </div>
 
 <!-- Kartu filter & pencarian -->
-<div class="bg-white rounded-2xl shadow-card border border-slate-100 p-4 sm:p-5 mb-6">
+<div class="bg-white rounded-md shadow-sm border border-slate-200 p-4 sm:p-5 mb-6">
     <form action="<?= url('admin/mahasiswa/index.php') ?>" method="GET" class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
 
         <!-- Pencarian -->
@@ -184,7 +181,7 @@ if (in_array($idRole, [3, 4], true)) {
                 </span>
                 <input type="text" name="q" id="q" value="<?= htmlspecialchars($q, ENT_QUOTES, 'UTF-8') ?>"
                        placeholder="Ketik nama atau NPM..."
-                       class="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                       class="w-full pl-9 pr-3 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
             </div>
         </div>
 
@@ -193,11 +190,11 @@ if (in_array($idRole, [3, 4], true)) {
             <label for="prodi" class="block text-xs font-semibold text-slate-600 mb-1.5">Program Studi</label>
             <?php if ($lockedProdiId): ?>
                 <input type="text" value="<?= htmlspecialchars($lockedProdiName, ENT_QUOTES, 'UTF-8') ?>" disabled
-                       class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-sm text-slate-500">
+                       class="w-full px-3 py-2.5 rounded-md border border-slate-200 bg-slate-100 text-sm text-slate-500">
                 <input type="hidden" name="prodi" value="<?= (int) $lockedProdiId ?>">
             <?php else: ?>
                 <select name="prodi" id="prodi"
-                        class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                        class="w-full px-3 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                     <option value="0">— Semua Prodi —</option>
                     <?php foreach ($prodiList as $p): ?>
                         <option value="<?= (int) $p['id_program_studi'] ?>"
@@ -213,7 +210,7 @@ if (in_array($idRole, [3, 4], true)) {
         <div class="md:col-span-2">
             <label for="status" class="block text-xs font-semibold text-slate-600 mb-1.5">Status</label>
             <select name="status" id="status"
-                    class="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                    class="w-full px-3 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 <option value="">— Semua —</option>
                 <?php foreach (['Aktif', 'Cuti', 'Lulus', 'Mengundurkan Diri', 'Drop Out', 'Tidak Aktif'] as $s): ?>
                     <option value="<?= htmlspecialchars($s, ENT_QUOTES, 'UTF-8') ?>" <?= $fStatus === $s ? 'selected' : '' ?>>
@@ -226,12 +223,12 @@ if (in_array($idRole, [3, 4], true)) {
         <!-- Tombol aksi filter -->
         <div class="md:col-span-2 flex gap-2">
             <button type="submit"
-                    class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-academic-700 hover:bg-academic-800 text-white text-sm font-semibold transition-colors">
+                    class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md bg-academic-600 hover:bg-academic-700 text-white text-sm font-semibold transition-colors focus:ring-4 focus:ring-academic-100">
                 <i class="fa-solid fa-filter"></i>
                 Filter
             </button>
             <a href="<?= url('admin/mahasiswa/index.php') ?>"
-               class="inline-flex items-center justify-center px-3 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors"
+               class="inline-flex items-center justify-center px-3 py-2.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors"
                title="Reset filter">
                 <i class="fa-solid fa-rotate-left"></i>
             </a>
@@ -240,7 +237,7 @@ if (in_array($idRole, [3, 4], true)) {
 </div>
 
 <!-- Tabel data -->
-<div class="bg-white rounded-2xl shadow-card border border-slate-100 overflow-hidden">
+<div class="bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
     <?php if (empty($mahasiswaList)): ?>
         <div class="p-12 text-center">
             <div class="w-20 h-20 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-5">
@@ -326,11 +323,11 @@ if (in_array($idRole, [3, 4], true)) {
 
                                         <!-- Hapus -->
                                         <form action="<?= url('admin/mahasiswa/process.php') ?>" method="POST"
-                                              class="inline"
-                                              onsubmit="return confirm('Yakin hapus data mahasiswa <?= htmlspecialchars(addslashes($m['nama_mahasiswa'] ?? ''), ENT_QUOTES, 'UTF-8') ?> (<?= htmlspecialchars(addslashes($m['npm'] ?? ''), ENT_QUOTES, 'UTF-8') ?>)?');">
+                                              class="inline">
                                             <input type="hidden" name="action" value="DELETE">
                                             <input type="hidden" name="id_mahasiswa" value="<?= $idM ?>">
                                             <button type="submit"
+                                                    data-confirm="Yakin hapus data mahasiswa <?= htmlspecialchars(addslashes($m['nama_mahasiswa'] ?? ''), ENT_QUOTES, 'UTF-8') ?> (<?= htmlspecialchars(addslashes($m['npm'] ?? ''), ENT_QUOTES, 'UTF-8') ?>)?"
                                                     class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-50 text-red-700 text-xs font-semibold hover:bg-red-100 transition-colors"
                                                     title="Hapus data">
                                                 <i class="fa-solid fa-trash-can"></i>

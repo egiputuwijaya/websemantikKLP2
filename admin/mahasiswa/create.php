@@ -79,14 +79,14 @@ $activeMenu = 'mahasiswa';
         <p class="text-sm text-slate-500 mt-1">Lengkapi formulir berikut untuk mendaftarkan mahasiswa baru.</p>
     </div>
     <a href="<?= url('admin/mahasiswa/index.php') ?>"
-       class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors">
+       class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors">
         <i class="fa-solid fa-arrow-left"></i>
         Kembali
     </a>
 </div>
 
 <!-- Form -->
-<div class="bg-white rounded-2xl shadow-card border border-slate-100 overflow-hidden">
+<div class="bg-white rounded-md shadow-sm border border-slate-200">
     <form action="<?= url('admin/mahasiswa/process.php') ?>" method="POST" id="form-mahasiswa" class="p-6 sm:p-8">
         <input type="hidden" name="action" value="CREATE">
 
@@ -109,7 +109,7 @@ $activeMenu = 'mahasiswa';
                     <input type="text" name="npm" id="npm" required maxlength="30"
                            placeholder="cth. 20260001"
                            value="<?= htmlspecialchars($old['npm'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                     <p class="text-[11px] text-slate-400 mt-1">Harus unik — digunakan juga sebagai username login bila akun dibuat.</p>
                 </div>
 
@@ -121,7 +121,7 @@ $activeMenu = 'mahasiswa';
                     <input type="text" name="nama_mahasiswa" id="nama_mahasiswa" required maxlength="200"
                            placeholder="Nama lengkap sesuai ijazah"
                            value="<?= htmlspecialchars($old['nama_mahasiswa'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
                 <!-- Jenis Kelamin -->
@@ -130,7 +130,7 @@ $activeMenu = 'mahasiswa';
                         Jenis Kelamin <span class="text-red-500">*</span>
                     </label>
                     <select name="jenis_kelamin" id="jenis_kelamin" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                            class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                         <option value="">— Pilih Jenis Kelamin —</option>
                         <option value="L" <?= ($old['jenis_kelamin'] ?? '') === 'L' ? 'selected' : '' ?>>Laki-laki</option>
                         <option value="P" <?= ($old['jenis_kelamin'] ?? '') === 'P' ? 'selected' : '' ?>>Perempuan</option>
@@ -143,7 +143,7 @@ $activeMenu = 'mahasiswa';
                         Status Mahasiswa <span class="text-red-500">*</span>
                     </label>
                     <select name="status_mahasiswa" id="status_mahasiswa" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                            class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                         <?php foreach (['Aktif', 'Cuti', 'Lulus', 'Mengundurkan Diri', 'Drop Out', 'Tidak Aktif'] as $s):
                             $selected = ($old['status_mahasiswa'] ?? 'Aktif') === $s ? 'selected' : '';
                         ?>
@@ -175,7 +175,7 @@ $activeMenu = 'mahasiswa';
                     <input type="text" name="tempat_lahir" id="tempat_lahir" maxlength="100"
                            placeholder="cth. Bengkulu"
                            value="<?= htmlspecialchars($old['tempat_lahir'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
                 <div>
@@ -184,7 +184,7 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <input type="date" name="tanggal_lahir" id="tanggal_lahir"
                            value="<?= htmlspecialchars($old['tanggal_lahir'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
             </div>
@@ -207,7 +207,7 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <input type="date" name="tanggal_masuk" id="tanggal_masuk" required
                            value="<?= htmlspecialchars($old['tanggal_masuk'] ?? date('Y-m-d'), ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
                 <div>
@@ -216,12 +216,12 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <?php if ($lockedProdiId): ?>
                         <input type="text" value="<?= htmlspecialchars($lockedProdiName, ENT_QUOTES, 'UTF-8') ?>" disabled
-                               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-sm text-slate-500">
+                               class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-100 text-sm text-slate-500">
                         <input type="hidden" name="id_program_studi" value="<?= $lockedProdiId ?>">
                         <p class="text-[11px] text-slate-400 mt-1">Dikunci mengikuti prodi Anda sebagai Operator.</p>
                     <?php else: ?>
                         <select name="id_program_studi" id="id_program_studi" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                                class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                             <option value="">— Pilih Program Studi —</option>
                             <?php foreach ($prodiList as $p): ?>
                                 <option value="<?= (int) $p['id_program_studi'] ?>"
@@ -243,7 +243,7 @@ $activeMenu = 'mahasiswa';
                 </label>
                 <textarea name="alamat" id="alamat" rows="3" maxlength="1000"
                           placeholder="Alamat lengkap mahasiswa..."
-                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors resize-y"><?= htmlspecialchars($old['alamat'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
+                          class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors resize-y"><?= htmlspecialchars($old['alamat'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
         </fieldset>
 
@@ -254,7 +254,7 @@ $activeMenu = 'mahasiswa';
                 Akun Login
             </legend>
 
-            <label for="buat_akun" class="flex items-start gap-3 cursor-pointer p-3 rounded-xl hover:bg-white/60 transition-colors">
+            <label for="buat_akun" class="flex items-start gap-3 cursor-pointer p-3 rounded-md hover:bg-white/60 transition-colors">
                 <input type="checkbox" name="buat_akun" id="buat_akun" value="1"
                        <?= !empty($old['buat_akun']) ? 'checked' : '' ?>
                        class="mt-0.5 w-4 h-4 rounded border-slate-300 text-academic-600 focus:ring-academic-500">
@@ -268,7 +268,7 @@ $activeMenu = 'mahasiswa';
                 </span>
             </label>
 
-            <div id="preview-akun" class="hidden mt-3 ml-3 p-3 rounded-xl bg-white border border-academic-200 text-xs text-slate-600">
+            <div id="preview-akun" class="hidden mt-3 ml-3 p-3 rounded-md bg-white border border-academic-200 text-xs text-slate-600">
                 <i class="fa-solid fa-circle-info text-academic-600"></i>
                 Preview: username <code id="preview-username" class="font-mono bg-slate-100 px-1.5 py-0.5 rounded">—</code>,
                 password default = <code class="font-mono bg-slate-100 px-1.5 py-0.5 rounded">sama dengan NPM</code>
@@ -278,12 +278,12 @@ $activeMenu = 'mahasiswa';
         <!-- Tombol aksi -->
         <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
             <button type="submit"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-academic-700 to-academic-600 hover:from-academic-800 text-white font-bold text-sm shadow-soft hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-academic-400 focus:ring-offset-2">
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-md bg-academic-600 hover:bg-academic-700 text-white font-bold text-sm transition-colors focus:outline-none focus:ring-4 focus:ring-academic-100">
                 <i class="fa-solid fa-floppy-disk"></i>
                 Simpan Data Mahasiswa
             </button>
             <a href="<?= url('admin/mahasiswa/index.php') ?>"
-               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition-colors">
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition-colors">
                 <i class="fa-solid fa-xmark"></i>
                 Batal
             </a>

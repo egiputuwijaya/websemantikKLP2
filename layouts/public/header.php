@@ -97,11 +97,23 @@ if (!isset($pageDesc)) {
         h1, h2, h3, h4, h5, h6, .font-heading {
             font-family: 'Poppins', 'Inter', sans-serif;
         }
-        .hero-gradient {
-            background:
-                radial-gradient(1000px 500px at 85% -10%, rgba(34,197,94,0.22), transparent 60%),
-                radial-gradient(800px 420px at 10% 110%, rgba(59,130,246,0.28), transparent 55%),
-                linear-gradient(135deg, #1e3a8a 0%, #1e40af 45%, #166534 100%);
+        @keyframes heroSlideshow {
+            0%, 16% { background-image: url('<?= url('assets/university/1.jpeg') ?>'); }
+            20%, 36% { background-image: url('<?= url('assets/university/2.jpeg') ?>'); }
+            40%, 56% { background-image: url('<?= url('assets/university/3.jpeg') ?>'); }
+            60%, 76% { background-image: url('<?= url('assets/university/4.jpg') ?>'); }
+            80%, 96% { background-image: url('<?= url('assets/university/5.jpeg') ?>'); }
+            100% { background-image: url('<?= url('assets/university/1.jpeg') ?>'); }
+        }
+        .hero-slider {
+            background-color: #1e3a8a;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: heroSlideshow 25s infinite linear;
+        }
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 64, 175, 0.65) 100%);
         }
         .glass {
             background: rgba(255, 255, 255, 0.08);

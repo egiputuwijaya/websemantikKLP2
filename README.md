@@ -31,9 +31,9 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - [x] Modul CRUD Data Mahasiswa & Auto-Create Akun Login (`admin/mahasiswa/`)
 
 ### FASE 4: Pengelolaan Data Master
-- [ ] Modul Kelola Profil Universitas (`admin/universitas/`)
-- [ ] Modul Kelola Fakultas (`admin/fakultas/`)
-- [ ] Modul Kelola Program Studi (`admin/program_studi/`)
+- [x] Modul Kelola Profil Universitas (`admin/universitas/`)
+- [x] Modul Kelola Fakultas (`admin/fakultas/`)
+- [x] Modul Kelola Program Studi (`admin/program_studi/`)
 
 ### FASE 5: Pengelolaan Pengguna & Hak Akses
 - [ ] Modul Manajemen User / Pengguna Aplikasi (`admin/pengguna/`)
@@ -61,25 +61,25 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - **Akses Role:** Admin (Role 1)
 - **Tabel Terkait:** `universitas`
 - **Deliverables:**
-  - [ ] `index.php`: Tampilan informasi profil perguruan tinggi.
-  - [ ] `edit.php` & `process.php`: Form perbaikan data kampus (nama universitas, slogan, alamat, kota, provinsi, kode pos, email, telepon, website).
-  - [ ] Integrasi pencatatan `audit_log` untuk aksi `UPDATE` data universitas.
+  - [x] `index.php`: Tampilan informasi profil perguruan tinggi.
+  - [x] `edit.php` & `process.php`: Form perbaikan data kampus (nama universitas, slogan, alamat, kota, provinsi, kode pos, email, telepon, website).
+  - [x] Integrasi pencatatan `audit_log` untuk aksi `UPDATE` data universitas.
 
 #### 4.2 Modul Kelola Fakultas (`admin/fakultas/`)
 - **Akses Role:** Admin (Role 1)
 - **Tabel Terkait:** `fakultas`, `universitas`
 - **Deliverables:**
-  - [ ] `index.php`: Tabel daftar fakultas dilengkapi jumlah program studi di dalamnya.
-  - [ ] `create.php` & `edit.php`: Form penambahan dan pengubahan data fakultas (`kode_fakultas`, `nama_fakultas`).
-  - [ ] `process.php`: Handler penambahan, pembaruan, dan penghapusan fakultas dengan validasi kunci unik `uk_fakultas_univ_kode`.
+  - [x] `index.php`: Tabel daftar fakultas dilengkapi jumlah program studi di dalamnya.
+  - [x] `create.php` & `edit.php`: Form penambahan dan pengubahan data fakultas (`kode_fakultas`, `nama_fakultas`).
+  - [x] `process.php`: Handler penambahan, pembaruan, dan penghapusan fakultas dengan validasi kunci unik `uk_fakultas_univ_kode`.
 
 #### 4.3 Modul Kelola Program Studi (`admin/program_studi/`)
 - **Akses Role:** Admin (Role 1)
 - **Tabel Terkait:** `program_studi`, `fakultas`
 - **Deliverables:**
-  - [ ] `index.php`: Tabel daftar program studi dengan filter berdasarkan fakultas.
-  - [ ] `create.php` & `edit.php`: Form pendaftaran dan pengubahan prodi (`kode_program_studi`, `nama_program_studi`, `jenjang`, `status_aktif`).
-  - [ ] `process.php`: Handler transaksi data prodi beserta validasi keunikan kombinasi `id_fakultas` & `kode_program_studi`.
+  - [x] `index.php`: Tabel daftar program studi dengan filter berdasarkan fakultas.
+  - [x] `create.php` & `edit.php`: Form pendaftaran dan pengubahan prodi (`kode_program_studi`, `nama_program_studi`, `jenjang`, `status_aktif`).
+  - [x] `process.php`: Handler transaksi data prodi beserta validasi keunikan kombinasi `id_fakultas` & `kode_program_studi`.
 
 ---
 
@@ -89,18 +89,18 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - **Akses Role:** Admin (Role 1)
 - **Tabel Terkait:** `pengguna`, `roles`, `universitas`, `fakultas`, `program_studi`
 - **Deliverables:**
-  - [ ] `index.php`: Tabel daftar seluruh pengguna aplikasi dengan filter berdasarkan Role, Fakultas, dan Prodi.
-  - [ ] `create.php`: Form tambah user manual (Operator Prodi, Dekanat, Rektorat, Admin, Mahasiswa).
-  - [ ] `edit.php`: Form ubah role, penetapan wilayah kewenangan (`id_fakultas` / `id_program_studi`), serta ubah status aktif/tidak aktif.
-  - [ ] `reset-password.php`: Fitur reset password user oleh admin menggunakan `password_hash()`.
-  - [ ] `process.php`: Handler simpan data user dan pencatatan `audit_log` untuk aksi `INSERT`/`UPDATE`/`DELETE`.
+  - [x] `index.php`: Tabel daftar seluruh pengguna aplikasi dengan filter berdasarkan Role, Fakultas, dan Prodi.
+  - [x] `create.php`: Form tambah user manual (Operator Prodi, Dekanat, Rektorat, Admin, Mahasiswa).
+  - [x] `edit.php`: Form ubah role, penetapan wilayah kewenangan (`id_fakultas` / `id_program_studi`), serta ubah status aktif/tidak aktif.
+  - [x] `reset-password.php`: Fitur reset password user oleh admin menggunakan `password_hash()`.
+  - [x] `process.php`: Handler simpan data user dan pencatatan `audit_log` untuk aksi `INSERT`/`UPDATE`/`DELETE`.
 
 #### 5.2 Modul Pengaturan Akun Pribadi (`admin/profil/`)
 - **Akses Role:** Semua Role (1, 2, 3, 4, 5)
 - **Tabel Terkait:** `pengguna`
 - **Deliverables:**
-  - [ ] `index.php`: Form ubah informasi pribadi (Nama Lengkap, Email, No HP).
-  - [ ] `ganti-password.php`: Form ubah password sendiri (wajib memasukkan password lama, password baru, dan konfirmasi password baru).
+  - [x] `index.php`: Form ubah informasi pribadi (Nama Lengkap, Email, No HP).
+  - [x] `ganti-password.php`: Form ubah password sendiri (wajib memasukkan password lama, password baru, dan konfirmasi password baru).
 
 ---
 
@@ -110,8 +110,8 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - **Akses Role:** Mahasiswa (Role 5)
 - **Tabel / View Terkait:** View `v_profil_mahasiswa`, tabel `mahasiswa`
 - **Deliverables:**
-  - [ ] `index.php`: Tampilan kartu identitas/profil mahasiswa lengkap (NPM, Nama, TTL, Jenis Kelamin, Tanggal Masuk, Prodi, Fakultas, Universitas, Status Akademik).
-  - [ ] `edit.php` & `process.php`: Form pembaruan mandiri data kontak/alamat oleh mahasiswa (dengan pembatasan tidak dapat mengubah NPM, Prodi, atau Status Akademik).
+  - [x] `index.php`: Tampilan kartu identitas/profil mahasiswa lengkap (NPM, Nama, TTL, Jenis Kelamin, Tanggal Masuk, Prodi, Fakultas, Universitas, Status Akademik).
+  - [x] `edit.php` & `process.php`: Form pembaruan mandiri data kontak/alamat oleh mahasiswa (dengan pembatasan tidak dapat mengubah NPM, Prodi, atau Status Akademik).
 
 ---
 
@@ -121,17 +121,17 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - **Akses Role:** Admin (Role 1)
 - **Tabel Terkait:** `audit_log`, `pengguna`
 - **Deliverables:**
-  - [ ] `index.php`: Tabel riwayat aktivitas sistem.
-  - [ ] Fitur Filter: Berdasarkan rentang tanggal (`waktu`), jenis aksi (`LOGIN`, `LOGOUT`, `INSERT`, `UPDATE`, `DELETE`), dan nama pengguna.
-  - [ ] `detail.php` / Modal Detail: Viewer untuk membandingkan isi kolom `data_lama` dan `data_baru` (format JSON).
+  - [x] `index.php`: Tabel riwayat aktivitas sistem.
+  - [x] Fitur Filter: Berdasarkan rentang tanggal (`waktu`), jenis aksi (`LOGIN`, `LOGOUT`, `INSERT`, `UPDATE`, `DELETE`), dan nama pengguna.
+  - [x] `detail.php` / Modal Detail: Viewer untuk membandingkan isi kolom `data_lama` dan `data_baru` (format JSON).
 
 #### 7.2 Modul Laporan Data Mahasiswa (`admin/laporan/`)
 - **Akses Role:** Operator Prodi (Role 2), Dekanat (Role 3), Rektorat (Role 4)
 - **Tabel / View Terkait:** View `v_mahasiswa_per_prodi`
 - **Deliverables:**
-  - [ ] `index.php`: Halaman rekapitulasi data mahasiswa berbasis grafik & tabel ringkasan (Jumlah Mahasiswa per Status: Aktif, Cuti, Lulus, Drop Out).
-  - [ ] `export-excel.php`: Skrip ekspor daftar mahasiswa terfilter ke format Spreadsheet/Excel (`.csv` / `.xlsx`).
-  - [ ] `cetak-pdf.php`: Layout cetak laporan versi PDF / Print-friendly.
+  - [x] `index.php`: Halaman rekapitulasi data mahasiswa berbasis grafik & tabel ringkasan (Jumlah Mahasiswa per Status: Aktif, Cuti, Lulus, Drop Out).
+  - [x] `export-excel.php`: Skrip ekspor daftar mahasiswa terfilter ke format Spreadsheet/Excel (`.csv` / `.xlsx`).
+  - [x] `cetak-pdf.php`: Layout cetak laporan versi PDF / Print-friendly.
 
 ---
 
@@ -151,13 +151,16 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 
 ## Kredensial Default (Development)
 
-| Username | Password | Role |
+Seluruh kredensial di bawah ini sudah ditanamkan pada file `sim_mahasiswa.sql` dan dapat langsung digunakan untuk *login* setelah database diimpor.
+
+| Username | Password | Role / Hak Akses |
 |---|---|---|
 | `Admin` | `Admin123` | 1 — Admin |
 | `operator.ti` | `operator123` | 2 — Operator Program Studi |
 | `dekanat.ft` | `dekanat123` | 3 — Dekanat |
-
-> Akun lain (`rektorat`, `20260001`) masih memakai hash placeholder dari dump SQL — perlu digenerate ulang sebelum dipakai login.
+| `rektorat` | `rektorat123` | 4 — Rektorat |
+| `20260001` | `
+` | 5 — Mahasiswa |
 
 ---
 

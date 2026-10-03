@@ -51,9 +51,7 @@ $tahun   = date('Y');
             <!-- Kolom 1: Profil Singkat Universitas -->
             <div>
                 <div class="flex items-center gap-3 mb-5">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-academic-600 to-elegant-600 flex items-center justify-center shadow-soft">
-                        <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
-                    </div>
+                    <img src="<?= url('assets/logoumb.png') ?>" alt="Logo UMB" class="w-11 h-11 object-contain shrink-0 bg-white rounded-lg p-0.5">
                     <div>
                         <p class="font-heading font-bold text-white text-base leading-tight">SIM Mahasiswa UMB</p>
                         <p class="text-[11px] text-elegant-400 font-semibold">Sistem Informasi Manajemen</p>

@@ -22,6 +22,11 @@ $navItems = [
         'href'  => url('fakultas-prodi.php'),
         'icon'  => 'fa-graduation-cap',
     ],
+    'about' => [
+        'label' => 'About Dev',
+        'href'  => url('about.php'),
+        'icon'  => 'fa-users',
+    ],
 ];
 ?>
 <!-- ===== NAVBAR ===== -->
@@ -31,9 +36,7 @@ $navItems = [
 
             <!-- Logo + Nama Aplikasi -->
             <a href="<?= url('index.php') ?>" class="flex items-center gap-3 group">
-                <div class="relative w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-academic-700 to-elegant-700 flex items-center justify-center shadow-soft shrink-0">
-                    <i class="fa-solid fa-graduation-cap text-white text-lg md:text-xl"></i>
-                </div>
+                <img src="<?= url('assets/logoumb.png') ?>" alt="Logo UMB" class="w-10 h-10 md:w-12 md:h-12 object-contain shrink-0">
                 <div class="leading-tight">
                     <span class="block font-heading font-extrabold text-slate-900 text-sm md:text-base tracking-tight">
                         SIM Mahasiswa
@@ -60,9 +63,9 @@ $navItems = [
             <!-- Aksi Desktop: Tombol Login -->
             <div class="hidden lg:flex items-center gap-3">
                 <a href="<?= url('auth/login.php') ?>"
-                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-academic-700 hover:bg-academic-800 text-white text-sm font-semibold shadow-soft transition-all hover:shadow-lg">
+                   class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-academic-600 hover:bg-academic-700 text-white text-sm font-bold shadow-sm transition-all focus:ring-4 focus:ring-academic-100">
                     <i class="fa-solid fa-right-to-bracket"></i>
-                    Login Sistem
+                    Login
                 </a>
             </div>
 
@@ -93,11 +96,9 @@ $navItems = [
             <?php endforeach; ?>
 
             <a href="<?= url('auth/login.php') ?>"
-               class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-academic-700 to-elegant-700 shadow-soft">
-                <span class="w-9 h-9 rounded-lg bg-white/20 flex items-center justify-center">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                </span>
-                Login Sistem
+               class="flex items-center justify-center gap-2 mt-2 px-4 py-3 w-full rounded-lg text-sm font-bold text-white bg-academic-600 hover:bg-academic-700 transition-colors">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
             </a>
         </div>
     </div>

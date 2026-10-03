@@ -123,12 +123,12 @@ $activeMenu = 'mahasiswa';
     </div>
     <div class="flex gap-2">
         <a href="<?= url('admin/mahasiswa/detail.php?id=' . $idMahasiswa) ?>"
-           class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors">
+           class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors">
             <i class="fa-solid fa-eye"></i>
             Detail
         </a>
         <a href="<?= url('admin/mahasiswa/index.php') ?>"
-           class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors">
+           class="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition-colors">
             <i class="fa-solid fa-arrow-left"></i>
             Kembali
         </a>
@@ -136,7 +136,7 @@ $activeMenu = 'mahasiswa';
 </div>
 
 <!-- Form -->
-<div class="bg-white rounded-2xl shadow-card border border-slate-100 overflow-hidden">
+<div class="bg-white rounded-md shadow-sm border border-slate-200">
     <form action="<?= url('admin/mahasiswa/process.php') ?>" method="POST" class="p-6 sm:p-8">
         <input type="hidden" name="action" value="UPDATE">
         <input type="hidden" name="id_mahasiswa" value="<?= (int) $mahasiswa['id_mahasiswa'] ?>">
@@ -158,7 +158,7 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <input type="text" name="npm" id="npm" required maxlength="30"
                            value="<?= htmlspecialchars($old['npm'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
                 <div>
@@ -167,7 +167,7 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <input type="text" name="nama_mahasiswa" id="nama_mahasiswa" required maxlength="200"
                            value="<?= htmlspecialchars($old['nama_mahasiswa'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
                 <div>
@@ -175,7 +175,7 @@ $activeMenu = 'mahasiswa';
                         Jenis Kelamin <span class="text-red-500">*</span>
                     </label>
                     <select name="jenis_kelamin" id="jenis_kelamin" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                            class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                         <option value="L" <?= ($old['jenis_kelamin'] ?? '') === 'L' ? 'selected' : '' ?>>Laki-laki</option>
                         <option value="P" <?= ($old['jenis_kelamin'] ?? '') === 'P' ? 'selected' : '' ?>>Perempuan</option>
                     </select>
@@ -186,7 +186,7 @@ $activeMenu = 'mahasiswa';
                         Status Mahasiswa <span class="text-red-500">*</span>
                     </label>
                     <select name="status_mahasiswa" id="status_mahasiswa" required
-                            class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                            class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                         <?php foreach (['Aktif', 'Cuti', 'Lulus', 'Mengundurkan Diri', 'Drop Out', 'Tidak Aktif'] as $s): ?>
                             <option value="<?= htmlspecialchars($s, ENT_QUOTES, 'UTF-8') ?>"
                                 <?= (($old['status_mahasiswa'] ?? '') === $s) ? 'selected' : '' ?>>
@@ -213,13 +213,13 @@ $activeMenu = 'mahasiswa';
                     <label for="tempat_lahir" class="block text-sm font-semibold text-slate-700 mb-1.5">Tempat Lahir</label>
                     <input type="text" name="tempat_lahir" id="tempat_lahir" maxlength="100"
                            value="<?= htmlspecialchars($old['tempat_lahir'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
                 <div>
                     <label for="tanggal_lahir" class="block text-sm font-semibold text-slate-700 mb-1.5">Tanggal Lahir</label>
                     <input type="date" name="tanggal_lahir" id="tanggal_lahir"
                            value="<?= htmlspecialchars($old['tanggal_lahir'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
             </div>
         </fieldset>
@@ -240,7 +240,7 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <input type="date" name="tanggal_masuk" id="tanggal_masuk" required
                            value="<?= htmlspecialchars($old['tanggal_masuk'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                           class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                 </div>
 
                 <div>
@@ -249,11 +249,11 @@ $activeMenu = 'mahasiswa';
                     </label>
                     <?php if ($lockedProdiId): ?>
                         <input type="text" value="<?= htmlspecialchars($lockedProdiName, ENT_QUOTES, 'UTF-8') ?>" disabled
-                               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-sm text-slate-500">
+                               class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-100 text-sm text-slate-500">
                         <input type="hidden" name="id_program_studi" value="<?= $lockedProdiId ?>">
                     <?php else: ?>
                         <select name="id_program_studi" id="id_program_studi" required
-                                class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
+                                class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors">
                             <?php foreach ($prodiList as $p): ?>
                                 <option value="<?= (int) $p['id_program_studi'] ?>"
                                     <?= ((int) ($old['id_program_studi'] ?? 0)) === (int) $p['id_program_studi'] ? 'selected' : '' ?>>
@@ -269,12 +269,12 @@ $activeMenu = 'mahasiswa';
             <div class="mt-5">
                 <label for="alamat" class="block text-sm font-semibold text-slate-700 mb-1.5">Alamat</label>
                 <textarea name="alamat" id="alamat" rows="3" maxlength="1000"
-                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors resize-y"><?= htmlspecialchars($old['alamat'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
+                          class="w-full px-4 py-2.5 rounded-md border border-slate-200 bg-slate-50 text-sm focus:border-academic-500 focus:bg-white focus:ring-2 focus:ring-academic-100 transition-colors resize-y"><?= htmlspecialchars($old['alamat'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
             </div>
         </fieldset>
 
         <!-- Info akun -->
-        <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3">
+        <div class="mb-6 p-4 rounded-md bg-slate-50 border border-slate-200 flex items-start gap-3">
             <i class="fa-solid fa-circle-info text-academic-600 mt-0.5"></i>
             <p class="text-xs text-slate-600 leading-relaxed">
                 Perubahan NPM tidak memperbarui username akun login yang sudah ada secara otomatis.
@@ -285,12 +285,12 @@ $activeMenu = 'mahasiswa';
         <!-- Tombol aksi -->
         <div class="flex flex-col sm:flex-row items-center gap-3 pt-2">
             <button type="submit"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-academic-700 to-academic-600 hover:from-academic-800 text-white font-bold text-sm shadow-soft hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-academic-400 focus:ring-offset-2">
+                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-md bg-academic-600 hover:bg-academic-700 text-white font-bold text-sm transition-colors focus:outline-none focus:ring-4 focus:ring-academic-100">
                 <i class="fa-solid fa-floppy-disk"></i>
                 Simpan Perubahan
             </button>
             <a href="<?= url('admin/mahasiswa/index.php') ?>"
-               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition-colors">
+               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 font-semibold text-sm transition-colors">
                 <i class="fa-solid fa-xmark"></i>
                 Batal
             </a>

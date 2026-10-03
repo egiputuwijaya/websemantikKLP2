@@ -45,7 +45,7 @@ if ($initials === '') {
         <div class="flex items-center gap-2 sm:gap-3">
 
             <!-- Info user (desktop) -->
-            <div class="hidden md:flex items-center gap-3 pl-3 pr-4 py-1.5 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="hidden md:flex items-center gap-3 pl-3 pr-4 py-1.5 rounded-md bg-slate-50 border border-slate-200">
                 <div class="w-9 h-9 rounded-full bg-gradient-to-br from-academic-600 to-elegant-600 flex items-center justify-center text-white font-bold text-xs shrink-0">
                     <?= htmlspecialchars($initials, ENT_QUOTES, 'UTF-8') ?>
                 </div>
@@ -65,8 +65,8 @@ if ($initials === '') {
 
             <!-- Tombol Logout -->
             <a href="<?= url('auth/logout.php') ?>"
-               onclick="return confirm('Apakah Anda yakin ingin keluar dari sistem?');"
-               class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1">
+               data-confirm="Apakah Anda yakin ingin keluar dari sistem?"
+               class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-md bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-1">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span class="hidden sm:inline">Logout</span>
             </a>

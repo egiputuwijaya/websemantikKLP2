@@ -88,9 +88,15 @@ foreach ($fakultasList as $fak) {
 <!-- ============================================================
      HERO HEADER HALAMAN
      ============================================================ -->
-<section class="relative overflow-hidden bg-gradient-to-br from-academic-800 via-academic-700 to-elegant-800">
-    <div class="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl"></div>
-    <div class="absolute bottom-0 -left-24 w-80 h-80 rounded-full bg-elegant-500/20 blur-3xl"></div>
+<section class="hero-slider relative overflow-hidden">
+    <!-- Overlay Transparan Hitam -->
+    <div class="absolute inset-0 hero-overlay pointer-events-none"></div>
+
+    <!-- Dekorasi background -->
+    <div class="absolute inset-0 opacity-20 pointer-events-none">
+        <div class="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl"></div>
+        <div class="absolute bottom-0 -left-24 w-80 h-80 rounded-full bg-elegant-500/20 blur-3xl"></div>
+    </div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
         <!-- Breadcrumb -->
@@ -109,10 +115,6 @@ foreach ($fakultasList as $fak) {
 
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div class="max-w-2xl">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-elegant-300 text-xs font-semibold mb-4">
-                    <i class="fa-solid fa-building-columns"></i>
-                    Struktur Akademik
-                </span>
                 <h1 class="font-heading font-extrabold text-white text-3xl sm:text-4xl leading-tight mb-4">
                     Daftar Fakultas &amp; Program Studi
                 </h1>
@@ -169,21 +171,21 @@ foreach ($fakultasList as $fak) {
             ?>
 
                 <!-- ===== CARD FAKULTAS ===== -->
-                <article class="bg-white rounded-2xl shadow-card border border-slate-100 overflow-hidden">
+                <article class="bg-white rounded-lg shadow-sm border border-slate-100 overflow-hidden">
 
                     <!-- Header Fakultas -->
-                    <header class="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-5 md:p-6">
+                    <header class="border-b border-slate-100 bg-white">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-4 p-5 md:px-6 md:py-5">
                             <!-- Ikon -->
                             <div class="flex items-center gap-4 flex-1 min-w-0">
-                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-academic-700 to-academic-500 text-white flex items-center justify-center shrink-0 shadow-soft">
-                                    <i class="fa-solid fa-building-columns text-xl"></i>
+                                <div class="w-12 h-12 rounded-lg bg-academic-50 text-academic-700 flex items-center justify-center shrink-0 border border-academic-100">
+                                    <i class="fa-solid fa-building-columns text-lg"></i>
                                 </div>
                                 <div class="min-w-0">
-                                    <span class="inline-block px-2.5 py-0.5 rounded-md bg-academic-100 text-academic-800 text-[11px] font-bold tracking-wide mb-1.5">
+                                    <span class="inline-block px-2 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-500 text-[10px] font-bold tracking-wide mb-1">
                                         <?= htmlspecialchars($kodeFakultas, ENT_QUOTES, 'UTF-8') ?>
                                     </span>
-                                    <h2 class="font-heading font-bold text-lg md:text-xl text-slate-900 leading-snug truncate">
+                                    <h2 class="font-heading font-extrabold text-lg text-slate-900 leading-snug truncate">
                                         <?= htmlspecialchars($namaFakultas, ENT_QUOTES, 'UTF-8') ?>
                                     </h2>
                                 </div>
@@ -191,14 +193,14 @@ foreach ($fakultasList as $fak) {
 
                             <!-- Badge jumlah prodi + tombol accordion -->
                             <div class="flex items-center gap-3 shrink-0">
-                                <span class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-elegant-50 text-elegant-800 text-xs font-bold border border-elegant-100">
-                                    <i class="fa-solid fa-book"></i>
+                                <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-elegant-50 text-elegant-700 text-xs font-bold border border-elegant-100">
+                                    <i class="fa-solid fa-book-open"></i>
                                     <?= number_format($jumlahProdi) ?> Program Studi
                                 </span>
 
                                 <!-- Tombol toggle (mobile-friendly, tetap bisa dipakai di desktop) -->
                                 <button type="button"
-                                        class="accordion-toggle inline-flex items-center justify-center w-11 h-11 rounded-xl border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 hover:text-academic-700 focus:outline-none focus:ring-2 focus:ring-academic-500 transition-colors"
+                                        class="accordion-toggle inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 hover:text-slate-800 transition-colors"
                                         data-target="<?= htmlspecialchars($collapseId, ENT_QUOTES, 'UTF-8') ?>"
                                         aria-expanded="<?= $isOpen ? 'true' : 'false' ?>"
                                         aria-controls="<?= htmlspecialchars($collapseId, ENT_QUOTES, 'UTF-8') ?>">
@@ -225,7 +227,7 @@ foreach ($fakultasList as $fak) {
                             <?php else: ?>
 
                                 <!-- Grid program studi -->
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <?php foreach ($prodiList as $prodi):
                                         $namaProdi   = $prodi['nama_program_studi'] ?? '-';
                                         $kodeProdi   = $prodi['kode_program_studi'] ?? '-';
@@ -240,7 +242,7 @@ foreach ($fakultasList as $fak) {
                                             default => 'bg-slate-100 text-slate-700 border-slate-200',
                                         };
                                     ?>
-                                        <div class="group relative p-5 rounded-xl border border-slate-200 bg-white hover:border-academic-300 hover:shadow-soft transition-all card-hover">
+                                        <div class="group relative p-6 rounded-lg border border-slate-200 bg-white hover:border-academic-300 hover:shadow-sm transition-all card-hover">
                                             <!-- Aksen pojok -->
                                             <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-academic-50 to-transparent rounded-bl-3xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 
@@ -283,22 +285,22 @@ foreach ($fakultasList as $fak) {
     <?php endif; ?>
 
     <!-- Catatan / CTA bawah -->
-    <div class="mt-12 md:mt-16 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-start gap-4 text-center md:text-left">
-            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-circle-question text-elegant-300 text-lg"></i>
+    <div class="mt-16 pt-10 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-start md:items-center gap-4 text-center md:text-left flex-col md:flex-row">
+            <div class="w-12 h-12 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center shrink-0 mx-auto md:mx-0">
+                <i class="fa-solid fa-circle-question text-slate-500 text-lg"></i>
             </div>
             <div>
-                <h3 class="font-heading font-bold text-white text-base md:text-lg mb-1">Butuh Informasi Lebih Lanjut?</h3>
-                <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
+                <h3 class="font-heading font-extrabold text-slate-900 text-lg mb-1">Butuh Informasi Lebih Lanjut?</h3>
+                <p class="text-slate-500 text-sm leading-relaxed max-w-xl">
                     Masuk ke portal untuk mengelola data akademik Anda, atau hubungi
                     bagian akademik fakultas terkait.
                 </p>
             </div>
         </div>
         <a href="<?= url('auth/login.php') ?>"
-           class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-slate-900 font-bold text-sm shadow-soft hover:shadow-lg hover:-translate-y-0.5 transition-all">
-            <i class="fa-solid fa-right-to-bracket text-academic-700"></i>
+           class="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-academic-600 text-white font-bold text-sm hover:bg-academic-700 transition-colors focus:ring-4 focus:ring-academic-100">
+            <i class="fa-solid fa-right-to-bracket"></i>
             Login Sistem
         </a>
     </div>
