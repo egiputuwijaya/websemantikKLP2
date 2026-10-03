@@ -45,6 +45,7 @@ $activeMenu = 'fakultas';
 
     <div class="bg-white rounded-md shadow-sm border border-slate-200">
         <form action="<?= url('admin/fakultas/process.php') ?>" method="POST" class="p-6 sm:p-8">
+            <?= csrf_field() ?>
             <input type="hidden" name="action" value="update">
             <input type="hidden" name="id_fakultas" value="<?= $id ?>">
             

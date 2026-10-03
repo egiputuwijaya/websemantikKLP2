@@ -42,6 +42,7 @@ $activeMenu = 'prodi';
 
     <div class="bg-white rounded-md shadow-sm border border-slate-200">
         <form action="<?= url('admin/program_studi/process.php') ?>" method="POST" class="p-6 sm:p-8">
+            <?= csrf_field() ?>
             <input type="hidden" name="action" value="create">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">

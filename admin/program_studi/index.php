@@ -124,6 +124,7 @@ $activeMenu = 'prodi';
                                             <i class="fa-solid fa-pen-to-square text-xs"></i>
                                         </a>
                                         <form action="<?= url('admin/program_studi/process.php') ?>" method="POST" class="inline-block">
+                                            <?= csrf_field() ?>
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="id_program_studi" value="<?= $row['id_program_studi'] ?>">
                                             <button type="submit" data-confirm="Peringatan: Menghapus Program Studi mungkin akan gagal jika ada mahasiswa yang terdaftar di dalamnya. Lanjutkan?" class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors" title="Hapus">

@@ -80,7 +80,8 @@ $activeMenu = 'fakultas';
                                         <!-- Form Delete -->
                                         <?php if ($row['jumlah_prodi'] == 0): ?>
                                         <form action="<?= url('admin/fakultas/process.php') ?>" method="POST" class="inline-block">
-                                            <input type="hidden" name="action" value="delete">
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="id_fakultas" value="<?= $row['id_fakultas'] ?>">
                                             <button type="submit" data-confirm="Apakah Anda yakin ingin menghapus fakultas ini?" class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors" title="Hapus">
                                                 <i class="fa-solid fa-trash-can text-xs"></i>
