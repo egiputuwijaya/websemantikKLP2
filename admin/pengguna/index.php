@@ -135,6 +135,7 @@ $activeMenu = 'pengguna';
                                         </a>
                                         <?php if ($row['kode_role'] !== 'ADMIN' || $row['id_pengguna'] != $_SESSION['user']['id_pengguna']): ?>
                                         <form action="<?= url('admin/pengguna/process.php') ?>" method="POST" class="inline-block">
+                                            <?= csrf_field() ?>
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="id_pengguna" value="<?= $row['id_pengguna'] ?>">
                                             <button type="submit" data-confirm="Apakah Anda yakin ingin menghapus pengguna ini?" class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center hover:bg-red-100 transition-colors" title="Hapus">
