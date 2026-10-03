@@ -324,6 +324,7 @@ $activeMenu = 'mahasiswa';
                                         <!-- Hapus -->
                                         <form action="<?= url('admin/mahasiswa/process.php') ?>" method="POST"
                                               class="inline">
+                                            <?= csrf_field() ?>
                                             <input type="hidden" name="action" value="DELETE">
                                             <input type="hidden" name="id_mahasiswa" value="<?= $idM ?>">
                                             <button type="submit"

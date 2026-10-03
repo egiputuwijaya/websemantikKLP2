@@ -27,6 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+csrf_verify();
+
 $user   = get_user_login();
 $idRole = (int) ($user['id_role'] ?? 0);
 $action = isset($_POST['action']) ? strtoupper(trim((string) $_POST['action'])) : '';
