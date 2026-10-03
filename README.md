@@ -36,15 +36,15 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - [x] Modul Kelola Program Studi (`admin/program_studi/`)
 
 ### FASE 5: Pengelolaan Pengguna & Hak Akses
-- [ ] Modul Manajemen User / Pengguna Aplikasi (`admin/pengguna/`)
-- [ ] Modul Pengaturan Akun Pribadi & Ganti Password (`admin/profil/`)
+- [x] Modul Manajemen User / Pengguna Aplikasi (`admin/pengguna/`)
+- [x] Modul Pengaturan Akun Pribadi & Ganti Password (`admin/profil/`)
 
 ### FASE 6: Portal Mandiri Mahasiswa (Self-Service)
-- [ ] Halaman Profil Saya & Update Data Kontak Mahasiswa (`admin/profil-saya/`)
+- [x] Halaman Profil Saya & Update Data Kontak Mahasiswa (`admin/profil-saya/`)
 
 ### FASE 7: Monitoring & Laporan
-- [ ] Modul Viewer Audit Log System (`admin/audit_log/`)
-- [ ] Modul Laporan Mahasiswa, Rekapitulasi & Export Excel/PDF (`admin/laporan/`)
+- [x] Modul Viewer Audit Log System (`admin/audit_log/`)
+- [x] Modul Laporan Mahasiswa, Rekapitulasi & Export Excel/PDF (`admin/laporan/`)
 
 ### FASE 8: Keamanan & Pengujian Sistem
 - [ ] Hardening `.htaccess` pada folder `uploads/`
@@ -159,8 +159,7 @@ Seluruh kredensial di bawah ini sudah ditanamkan pada file `sim_mahasiswa.sql` d
 | `operator.ti` | `operator123` | 2 — Operator Program Studi |
 | `dekanat.ft` | `dekanat123` | 3 — Dekanat |
 | `rektorat` | `rektorat123` | 4 — Rektorat |
-| `20260001` | `
-` | 5 — Mahasiswa |
+| `20260001` | `20260001` | 5 — Mahasiswa |
 
 ---
 
