@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+csrf_verify();
+
 $action = sanitize($_POST['action'] ?? '');
 $user = get_user_login();
 $idPengguna = $user ? (int)($user['id_pengguna'] ?? 0) : null;
