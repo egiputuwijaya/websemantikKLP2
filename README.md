@@ -138,7 +138,7 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 ### FASE 8: Keamanan, Optimasi & Deployment
 
 #### 8.1 Hardening Keamanan
-- [ ] Proteksi folder `uploads/` dengan file `.htaccess` agar berkas yang diunggah tidak dapat dieksekusi sebagai script PHP.
+- [X] Proteksi folder `uploads/` dengan file `.htaccess` agar berkas yang diunggah tidak dapat dieksekusi sebagai script PHP.
 - [ ] Implementasi token CSRF (`$_SESSION['csrf_token']`) pada seluruh form penambahan, pengubahan, dan penghapusan data.
 - [ ] Validasi tipe dan ukuran file upload (misal: foto profil maksimal 2MB, ekstensi `.jpg`, `.jpeg`, `.png`).
 
