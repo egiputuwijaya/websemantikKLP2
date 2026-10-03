@@ -1,0 +1,7 @@
+# Larang eksekusi semua file script
+<FilesMatch "\.(php|php3|php4|php5|php7|php8|phtml|phar)$">
+    Require all denied
+</FilesMatch>
+
+# Matikan daftar isi folder dan eksekusi CGI
+Options -Indexes -ExecCGI
