@@ -139,13 +139,13 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 
 #### 8.1 Hardening Keamanan
 - [X] Proteksi folder `uploads/` dengan file `.htaccess` agar berkas yang diunggah tidak dapat dieksekusi sebagai script PHP.
-- [ ] Implementasi token CSRF (`$_SESSION['csrf_token']`) pada seluruh form penambahan, pengubahan, dan penghapusan data.
+- [X] Implementasi token CSRF (`$_SESSION['csrf_token']`) pada seluruh form penambahan, pengubahan, dan penghapusan data.
 - [ ] Validasi tipe dan ukuran file upload (misal: foto profil maksimal 2MB, ekstensi `.jpg`, `.jpeg`, `.png`).
 
 #### 8.2 Testing & Quality Assurance
-- [ ] Testing Hak Akses (RBAC): Memastikan user dengan Role 5 (Mahasiswa) atau Role 2 (Operator) tidak bisa membobol URL halaman milik Admin (Role 1).
-- [ ] Testing Integritas Database: Memastikan transaksi `PDO Transaction` berfungsi saat terjadi pembatalan (*rollback*) ketika pembuatan akun user gagal.
-- [ ] Checking SQL Injection & XSS: Memastikan seluruh input menggunakan *Prepared Statements* dan seluruh variabel output dilapisi `htmlspecialchars()`.
+- [X] Testing Hak Akses (RBAC): Memastikan user dengan Role 5 (Mahasiswa) atau Role 2 (Operator) tidak bisa membobol URL halaman milik Admin (Role 1).
+- [X] Testing Integritas Database: Memastikan transaksi `PDO Transaction` berfungsi saat terjadi pembatalan (*rollback*) ketika pembuatan akun user gagal.
+- [X] Checking SQL Injection & XSS: Memastikan seluruh input menggunakan *Prepared Statements* dan seluruh variabel output dilapisi `htmlspecialchars()`.
 
 ---
 
