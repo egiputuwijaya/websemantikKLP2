@@ -55,6 +55,7 @@ $activeMenu = 'profil_saya';
 
     <div class="bg-white rounded-md shadow-card border border-slate-100 overflow-hidden">
         <form action="<?= url('admin/profil-saya/process.php') ?>" method="POST" class="p-6 sm:p-8">
+            <?= csrf_field() ?>
             <input type="hidden" name="action" value="update">
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">

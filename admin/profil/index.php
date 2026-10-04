@@ -52,6 +52,7 @@ $activeMenu = 'profil';
 
     <div class="bg-white rounded-md shadow-sm border border-slate-200 overflow-hidden">
         <form action="<?= url('admin/profil/process.php') ?>" method="POST" class="p-6 sm:p-8">
+            <?= csrf_field() ?>
             <input type="hidden" name="action" value="update_profile">
             
             <div class="space-y-6">

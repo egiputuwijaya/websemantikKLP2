@@ -157,7 +157,7 @@ $pageTitle = 'Login — ' . APP_NAME;
 
                 <!-- Form -->
                 <form action="<?= url('auth/process.php') ?>" method="POST" autocomplete="on" class="space-y-5">
-
+                    <?= csrf_field() ?>
                     <!-- Username -->
                     <div>
                         <label for="username" class="block text-sm font-semibold text-slate-700 mb-1.5">

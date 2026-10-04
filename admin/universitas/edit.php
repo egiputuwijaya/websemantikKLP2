@@ -36,7 +36,7 @@ $activeMenu = 'universitas';
     </div>
 
     <form action="<?= url('admin/universitas/process.php') ?>" method="POST" class="p-6">
-        <!-- Token CSRF jika ada di masa depan -->
+        <?= csrf_field() ?>
         
         <input type="hidden" name="action" value="update">
         <input type="hidden" name="id_universitas" value="<?= (int) $univ['id_universitas'] ?>">

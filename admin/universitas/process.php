@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+csrf_verify();
+
 $action = sanitize($_POST['action'] ?? '');
 $id     = (int) ($_POST['id_universitas'] ?? 0);
 
