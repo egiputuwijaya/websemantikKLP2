@@ -18,6 +18,24 @@ require_once dirname(__DIR__) . '/app/audit.php';
 require_once dirname(__DIR__) . '/app/auth.php';
 
 // ----------------------------------------------------------
+// 0. Hanya izinkan POST + token CSRF (mencegah logout paksa
+//    via <img src="logout.php"> atau link dari situs lain)
+//   GET tetap diizinkan bila request sudah membawa token valid
+//    (agar tautan logout di topbar tetap berfungsi tanpa form).
+// ----------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
+} else {
+    $token = $_GET['csrf_token'] ?? '';
+    $stored = $_SESSION['csrf_token'] ?? '';
+    if (!is_string($token) || $stored === '' || !hash_equals($stored, $token)) {
+        set_flash_message('warning', 'Permintaan logout tidak valid. Silakan gunakan tombol Keluar.');
+        redirect(url('auth/login.php'));
+        exit;
+    }
+}
+
+// ----------------------------------------------------------
 // 1. Ambil data pengguna yang sedang login (sebelum dihancurkan)
 // ----------------------------------------------------------
 $user = get_user_login();

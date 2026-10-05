@@ -45,6 +45,50 @@ if (strlen($username) > 100) {
 }
 
 // ----------------------------------------------------------
+// 3b. PEMBATASAN PERCOBAAN LOGIN (Anti Brute-Force)
+//      Maksimal 5x gagal → dikunci 15 menit.
+//      Key di-hash (username + IP) sehingga tidak menyimpan username mentah.
+// ----------------------------------------------------------
+if (!defined('LOGIN_MAX_ATTEMPTS')) {
+    define('LOGIN_MAX_ATTEMPTS', 5);
+    define('LOGIN_LOCK_SECONDS', 900); // 15 menit
+}
+
+$loginKey = 'login_fail_' . hash('sha256', strtolower($username) . '|' . ($_SERVER['REMOTE_ADDR'] ?? 'cli'));
+$nowTs    = time();
+
+if (isset($_SESSION[$loginKey]) && is_array($_SESSION[$loginKey])) {
+    $rec = $_SESSION[$loginKey];
+    if ($rec['count'] >= LOGIN_MAX_ATTEMPTS && ($nowTs - (int) $rec['last']) < LOGIN_LOCK_SECONDS) {
+        $sisa   = LOGIN_LOCK_SECONDS - ($nowTs - (int) $rec['last']);
+        $menit  = (int) ceil($sisa / 60);
+        set_flash_message('danger', 'Terlalu banyak percobaan login. Silakan coba lagi dalam ' . $menit . ' menit.');
+        redirect(url('auth/login.php'));
+        exit;
+    }
+}
+
+/**
+ * Catat 1 percobaan login gagal untuk kombinasi username+IP.
+ */
+function register_login_failure(string $key): void
+{
+    if (!isset($_SESSION[$key]) || !is_array($_SESSION[$key])) {
+        $_SESSION[$key] = ['count' => 0, 'last' => 0];
+    }
+    $_SESSION[$key]['count']++;
+    $_SESSION[$key]['last'] = time();
+}
+
+/**
+ * Hapus riwayat kegagalan setelah login berhasil.
+ */
+function clear_login_failure(string $key): void
+{
+    unset($_SESSION[$key]);
+}
+
+// ----------------------------------------------------------
 // 4. Cari akun berdasarkan username + status_aktif = 'Aktif'
 //    (Prepared Statement — aman dari SQL Injection)
 // ----------------------------------------------------------
@@ -85,13 +129,15 @@ try {
 if ($user === false) {
     // Username tidak ada ATAU akun tidak aktif — pesan sengaja disamakan
     // agar tidak membocorkan keberadaan akun (anti user enumeration).
+    register_login_failure($loginKey);
     set_flash_message('danger', 'Username atau password salah / Akun tidak aktif.');
     redirect(url('auth/login.php'));
     exit;
 }
 
 if (!password_verify($password, $user['password_hash'])) {
-    // Password salah — coba catat ke audit sebagai upaya login gagal
+    // Password salah — catat ke audit +increment percobaan gagal
+    register_login_failure($loginKey);
     log_activity(
         $pdo,
         (int) $user['id_pengguna'],
@@ -108,8 +154,25 @@ if (!password_verify($password, $user['password_hash'])) {
 }
 
 // ----------------------------------------------------------
-// 6. Login berhasil → update last_login
+// 5b. Rehash password bila algoritma/parameter hash sudah usang
 // ----------------------------------------------------------
+if (password_needs_rehash($user['password_hash'], PASSWORD_DEFAULT)) {
+    try {
+        $stmtRehash = $pdo->prepare("UPDATE pengguna SET password_hash = :hash WHERE id_pengguna = :id");
+        $stmtRehash->execute([
+            ':hash' => password_hash($password, PASSWORD_DEFAULT),
+            ':id'   => $user['id_pengguna'],
+        ]);
+    } catch (PDOException $e) {
+        error_log('[LOGIN WARNING] Gagal rehash password: ' . $e->getMessage());
+    }
+}
+
+// ----------------------------------------------------------
+// 6. Login berhasil → bersihkan riwayat gagal & update last_login
+// ----------------------------------------------------------
+clear_login_failure($loginKey);
+
 try {
     $stmtUpdate = $pdo->prepare("UPDATE pengguna SET last_login = NOW() WHERE id_pengguna = :id");
     $stmtUpdate->execute([':id' => $user['id_pengguna']]);

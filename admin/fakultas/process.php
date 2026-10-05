@@ -102,6 +102,7 @@ if ($action === 'create') {
         set_flash_message('success', 'Data Fakultas berhasil diperbarui.');
     } catch (PDOException $e) {
         $pdo->rollBack();
+        error_log('[FAKULTAS UPDATE] ' . $e->getMessage());
         if ($e->getCode() == 23000) {
             set_flash_message('danger', 'Gagal: Kode Fakultas sudah digunakan.');
         } else {
@@ -111,7 +112,9 @@ if ($action === 'create') {
         exit;
     } catch (Exception $e) {
         $pdo->rollBack();
-        set_flash_message('danger', $e->getMessage());
+        // Detail error hanya ke log server, tidak ditampilkan ke user
+        error_log('[FAKULTAS UPDATE] ' . $e->getMessage());
+        set_flash_message('danger', 'Terjadi kesalahan sistem saat memproses data.');
     }
 
 } elseif ($action === 'delete') {

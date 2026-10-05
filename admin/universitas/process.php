@@ -106,7 +106,9 @@ if ($action === 'update' && $id > 0) {
         }
     } catch (Exception $e) {
         $pdo->rollBack();
-        set_flash_message('danger', $e->getMessage());
+        // Detail error hanya ke log server, tidak ditampilkan ke user
+        error_log('[UPDATE UNIVERSITAS ERROR] ' . $e->getMessage());
+        set_flash_message('danger', 'Terjadi kesalahan sistem saat memproses data.');
     }
 } else {
     set_flash_message('danger', 'Aksi tidak valid.');

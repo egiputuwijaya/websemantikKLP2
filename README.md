@@ -46,10 +46,29 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - [x] Modul Viewer Audit Log System (`admin/audit_log/`)
 - [x] Modul Laporan Mahasiswa, Rekapitulasi & Export Excel/PDF (`admin/laporan/`)
 
-### FASE 8: Keamanan & Pengujian Sistem
-- [ ] Hardening `.htaccess` pada folder `uploads/`
-- [ ] Implementasi Token Proteksi CSRF pada Form
-- [ ] Testing Pengujian Hak Akses (RBAC) & Security Audit
+### FASE 8: Keamanan, Optimasi & Deployment
+
+#### Yang sudah selesai
+- [x] Hardening `.htaccess` pada folder `uploads/` (blokir eksekusi `.php/.phtml/.phar`, matikan directory listing)
+- [x] Root `.htaccess`: blokir unduhan `.sql`, `.md`, `.txt`, `.log`, `.json`, file backup, dan akses folder `config/` + `app/`
+- [x] Implementasi Token Proteksi CSRF pada seluruh form (`csrf_field()` + `csrf_verify()` di 9 handler)
+- [x] Proteksi CSRF pada aksi logout (link logout membawa token)
+- [x] Hardening cookie session: nama kustom, `HttpOnly`, `SameSite=Lax`, `Secure` (deteksi HTTPS otomatis), `use_strict_mode`, timeout idle 30 menit
+- [x] Security header: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, hapus `X-Powered-By`
+- [x] `session_regenerate_id()` setelah login (anti session fixation)
+- [x] Anti brute-force: 5× percobaan gagal → akun dikunci 15 menit (key di-hash username+IP)
+- [x] Auto rehash password bila parameter hash sudah usang (`password_needs_rehash`)
+- [x] Password policy: minimal 8 karakter, wajib huruf besar + huruf kecil + angka, blacklist password umum, dan tidak boleh sama dengan password lama
+- [x] Anti user enumeration: pesan login gagal disamakan untuk username tidak ada / password salah / akun nonaktif
+- [x] Pesan error tidak membocorkan detail SQL ke user (khusus ke `error_log`)
+- [x] Anti CSV/Formula Injection pada ekspor Excel (nilai berawalan `=`, `+`, `-`, `@` di-escape)
+- [x] Helper validasi upload siap pakai (`validate_upload()` 5 lapis + `safe_upload_name()`)
+- [x] Pemisahan environment `APP_ENV` (`development` / `production`) untuk mengatur `display_errors`
+- [x] Testing Hak Akses (RBAC) & Security Audit — 53 skenario otomatis
+
+#### Yang belum
+- [ ] Integrasi `validate_upload()` ke modul upload foto profil (belum ada fitur upload)
+- [ ] Batas rate limit API / pagination_export untuk data sangat besar
 
 ---
 
@@ -100,7 +119,7 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 - **Tabel Terkait:** `pengguna`
 - **Deliverables:**
   - [x] `index.php`: Form ubah informasi pribadi (Nama Lengkap, Email, No HP).
-  - [x] `ganti-password.php`: Form ubah password sendiri (wajib memasukkan password lama, password baru, dan konfirmasi password baru).
+  - [x] `password.php`: Form ubah password sendiri (wajib memasukkan password lama, password baru, dan konfirmasi password baru).
 
 ---
 
@@ -139,13 +158,23 @@ Sistem Informasi Manajemen Mahasiswa berbasis **PHP Native** + **PDO MySQL** + *
 
 #### 8.1 Hardening Keamanan
 - [X] Proteksi folder `uploads/` dengan file `.htaccess` agar berkas yang diunggah tidak dapat dieksekusi sebagai script PHP.
-- [X] Implementasi token CSRF (`$_SESSION['csrf_token']`) pada seluruh form penambahan, pengubahan, dan penghapusan data.
+- [X] Root `.htaccess`: melarang unduhan file sensitif (`.sql`, `.md`, `.txt`, `.json`, backup) dan memblokir akses langsung ke folder `config/` dan `app/`.
+- [X] Implementasi token CSRF (`$_SESSION['csrf_token']`) pada seluruh form penambahan, pengubahan, dan penghapusan data — termasuk aksi logout.
+- [X] Hardening cookie session (`HttpOnly`, `SameSite=Lax`, `Secure` saat HTTPS, `use_strict_mode`, nama kustom, timeout idle 30 menit) + `session_regenerate_id()` setelah login.
+- [X] Security header anti clickjacking & MIME sniffing (`X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`).
+- [X] Pembatasan percobaan login (brute-force): 5× gagal → dikunci 15 menit.
+- [X] Password policy: minimal 8 karakter + huruf besar/kecil/angka, blacklist password umum, dan berbeda dari password lama.
+- [X] Anti CSV/Formula Injection pada laporan ekspor Excel.
+- [X] Pesan error generik ke user (detail teknis hanya masuk `error_log`).
+- [X] Helper `validate_upload()` (ekstensi whitelist + MIME asli + `getimagesize`, maks 2MB) dan `safe_upload_name()` tersedia di `app/helper.php`.
+- [ ] Integrasi `validate_upload()` ke modul upload foto profil.
 - [ ] Validasi tipe dan ukuran file upload (misal: foto profil maksimal 2MB, ekstensi `.jpg`, `.jpeg`, `.png`).
 
 #### 8.2 Testing & Quality Assurance
 - [X] Testing Hak Akses (RBAC): Memastikan user dengan Role 5 (Mahasiswa) atau Role 2 (Operator) tidak bisa membobol URL halaman milik Admin (Role 1).
 - [X] Testing Integritas Database: Memastikan transaksi `PDO Transaction` berfungsi saat terjadi pembatalan (*rollback*) ketika pembuatan akun user gagal.
 - [X] Checking SQL Injection & XSS: Memastikan seluruh input menggunakan *Prepared Statements* dan seluruh variabel output dilapisi `htmlspecialchars()`.
+- [X] Regression test otomatis 53 skenario: CSRF, session hardening, security header, brute-force, logout CSRF, kebocoran error SQL, password policy, RBAC 5 role, dan halaman publik.
 
 ---
 
@@ -159,7 +188,7 @@ Seluruh kredensial di bawah ini sudah ditanamkan pada file `sim_mahasiswa.sql` d
 | `operator.ti` | `operator123` | 2 — Operator Program Studi |
 | `dekanat.ft` | `dekanat123` | 3 — Dekanat |
 | `rektorat` | `rektorat123` | 4 — Rektorat |
-| `20260001` | `20260001` | 5 — Mahasiswa |
+| `20260001` | `mhs123` | 5 — Mahasiswa |
 
 ---
 
@@ -183,11 +212,20 @@ sim-mahasiswa/
 ├── auth/                     # login, process, logout
 ├── admin/
 │   ├── dashboard/            # Dashboard dinamis per role
-│   └── mahasiswa/            # CRUD mahasiswa (index, create, edit, detail, process)
+│   ├── universitas/          # Profil universitas (Admin)
+│   ├── fakultas/             # CRUD fakultas (Admin)
+│   ├── program_studi/        # CRUD program studi (Admin)
+│   ├── pengguna/             # Manajemen user + reset password (Admin)
+│   ├── profil/               # Ubah profil & ganti password (semua role)
+│   ├── profil-saya/          # Portal mandiri mahasiswa (Role 5)
+│   ├── audit_log/            # Viewer audit log (Admin)
+│   ├── laporan/              # Rekapitulasi + export Excel + cetak PDF
+│   └── mahasiswa/            # CRUD mahasiswa + auto-create akun
 │
-├── assets/                   # css, js, images
-├── uploads/                  # file upload (foto profil, dll.)
+├── assets/                   # css, js, images, logo, foto pengguna
+├── uploads/                  # file upload (foto profil) — dilindungi .htaccess
 ├── index.php                 # Landing page publik
+├── about.php                 # Halaman "Tentang Kami" (publik)
 ├── fakultas-prodi.php        # Daftar fakultas & program studi (publik)
 └── sim_mahasiswa.sql         # Dump database
 ```

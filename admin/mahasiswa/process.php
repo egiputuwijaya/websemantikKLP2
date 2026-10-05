@@ -228,7 +228,8 @@ if ($action === 'CREATE') {
         } elseif ((int) $e->getCode() === 23000 && stripos($e->getMessage(), 'username') !== false) {
             $msg = 'Username "' . $input['npm'] . '" sudah digunakan pada tabel pengguna.';
         } else {
-            $msg = 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage();
+            // Jangan bocorkan detail SQL ke user (nama tabel/kolom/index)
+            $msg = 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi atau hubungi administrator.';
         }
 
         keep_old($input);
@@ -410,7 +411,8 @@ if ($action === 'UPDATE') {
         if ((int) $e->getCode() === 23000 && stripos($e->getMessage(), 'npm') !== false) {
             $msg = 'NPM "' . $input['npm'] . '" sudah digunakan mahasiswa lain.';
         } else {
-            $msg = 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage();
+            // Detail SQL hanya ke error_log, tidak ditampilkan ke user
+            $msg = 'Terjadi kesalahan saat memperbarui data. Silakan coba lagi atau hubungi administrator.';
         }
 
         keep_old($input + ['id_mahasiswa' => $idMahasiswa]);
@@ -512,7 +514,8 @@ if ($action === 'DELETE') {
             $pdo->rollBack();
         }
         error_log('[MAHASISWA DELETE] ' . $e->getMessage());
-        set_flash_message('danger', 'Gagal menghapus data mahasiswa. ' . $e->getMessage());
+        // Jangan bocorkan detail SQL ke user
+        set_flash_message('danger', 'Gagal menghapus data mahasiswa. Silakan coba lagi atau hubungi administrator.');
         redirect(url('admin/mahasiswa/index.php'));
         exit;
     }

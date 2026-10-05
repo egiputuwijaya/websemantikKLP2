@@ -90,7 +90,9 @@ if ($action === 'update') {
         }
     } catch (Exception $e) {
         $pdo->rollBack();
-        set_flash_message('danger', $e->getMessage());
+        // Detail error hanya ke log server, tidak ditampilkan ke user
+        error_log('[PROFIL-SAYA UPDATE] ' . $e->getMessage());
+        set_flash_message('danger', 'Terjadi kesalahan sistem saat memproses data.');
     }
 }
 

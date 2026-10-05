@@ -46,7 +46,7 @@ function check_auth(): void
     // Jika akun ditandai tidak aktif di session (edge case), paksa logout
     if (isset($user['status_aktif']) && $user['status_aktif'] !== 'Aktif') {
         set_flash_message('danger', 'Akun Anda tidak aktif. Silakan hubungi administrator.');
-        redirect(url('auth/logout.php'));
+        redirect(url('auth/logout.php') . '?csrf_token=' . urlencode(csrf_token()));
         exit;
     }
 }

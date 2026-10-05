@@ -67,19 +67,34 @@ $output = fopen('php://output', 'w');
 // Output UTF-8 BOM agar rapi di Excel
 fputs($output, "\xEF\xBB\xBF");
 
+/**
+ * Cegah CSV/Formula Injection.
+ * Nilai yang diawali = + - @ TAB atau CR akan dieksekusi sebagai formula
+ * ketika file dibuka di Excel/LibreOffice (risiko formula injection / phishing).
+ * Prefix tanda kutip tunggal memaksa Excel memperlakukannya sebagai teks.
+ */
+function csv_safe($value): string
+{
+    $value = (string) ($value ?? '');
+    if ($value !== '' && strpbrk($value[0], "=+-@\t\r") !== false) {
+        return "'" . $value;
+    }
+    return $value;
+}
+
 fputcsv($output, ['NPM', 'Nama Mahasiswa', 'L/P', 'Tempat Lahir', 'Tgl Lahir', 'Tgl Masuk', 'Program Studi', 'Fakultas', 'Status']);
 
 foreach ($mahasiswa as $m) {
     fputcsv($output, [
-        $m['npm'],
-        $m['nama_mahasiswa'],
-        $m['jenis_kelamin'],
-        $m['tempat_lahir'],
-        $m['tanggal_lahir'],
-        $m['tanggal_masuk'],
-        $m['nama_program_studi'],
-        $m['nama_fakultas'],
-        $m['status_mahasiswa']
+        csv_safe($m['npm']),
+        csv_safe($m['nama_mahasiswa']),
+        csv_safe($m['jenis_kelamin']),
+        csv_safe($m['tempat_lahir']),
+        csv_safe($m['tanggal_lahir']),
+        csv_safe($m['tanggal_masuk']),
+        csv_safe($m['nama_program_studi']),
+        csv_safe($m['nama_fakultas']),
+        csv_safe($m['status_mahasiswa'])
     ]);
 }
 fclose($output);

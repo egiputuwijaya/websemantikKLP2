@@ -86,8 +86,32 @@ if ($action === 'update_profile') {
         exit;
     }
 
-    if (strlen($passBaru) < 6) {
-        set_flash_message('danger', 'Kata Sandi Baru minimal harus 6 karakter.');
+    if (strlen($passBaru) < 8) {
+        set_flash_message('danger', 'Kata sandi baru minimal harus 8 karakter.');
+        redirect(url('admin/profil/password.php'));
+        exit;
+    }
+
+    // Policy kompleksitas: huruf besar, huruf kecil, dan angka
+    if (!preg_match('/[A-Z]/', $passBaru)
+        || !preg_match('/[a-z]/', $passBaru)
+        || !preg_match('/[0-9]/', $passBaru)) {
+        set_flash_message('danger', 'Kata sandi baru harus memuat huruf besar, huruf kecil, dan angka.');
+        redirect(url('admin/profil/password.php'));
+        exit;
+    }
+
+    // Larangan password yang terlalu umum / mudah ditebak
+    $passwordLarum = ['12345678', 'password', 'admin123', 'qwerty123', '123456789', 'umb12345', 'mahasiswa', 'admin1234'];
+    if (in_array(strtolower($passBaru), $passwordLarum, true)) {
+        set_flash_message('danger', 'Kata sandi baru terlalu umum. Silakan gunakan kombinasi yang lebih unik.');
+        redirect(url('admin/profil/password.php'));
+        exit;
+    }
+
+    // Password baru tidak boleh sama dengan password lama
+    if ($passBaru === $passLama) {
+        set_flash_message('danger', 'Kata sandi baru harus berbeda dari kata sandi lama.');
         redirect(url('admin/profil/password.php'));
         exit;
     }

@@ -187,3 +187,99 @@ function csrf_verify(): void
         redirect($back);
     }
 }
+
+/**
+ * ============================================================
+ *  VALIDASI FILE UPLOAD
+ * ============================================================
+ */
+
+/**
+ * Validasi file upload (foto profil, dll.) sebelum disimpan.
+ * Melakukan 4 lapis pemeriksaan:
+ *   1. Error bawaan PHP
+ *   2. Ukuran maksimal
+ *   3. Ekstensi putih (whitelist)
+ *   4. MIME asli file (bukan sekadar dari header browser)
+ *   5. Pastikan file benar-benar gambar yang valid (getimagesize)
+ *
+ * @param  array  $file        Elemen dari $_FILES
+ * @param  int    $maxBytes    Ukuran maksimal (default 2MB)
+ * @param  array  $allowedExt  Ekstensi yang diizinkan
+ * @return array  ['ok' => bool, 'error' => string|null, 'ext' => string]
+ */
+function validate_upload(array $file, int $maxBytes = 2097152, array $allowedExt = ['jpg', 'jpeg', 'png']): array
+{
+    $fail = static fn(string $msg): array => ['ok' => false, 'error' => $msg, 'ext' => null];
+
+    // 1. Error bawaan PHP
+    if (!isset($file['error']) || is_array($file['error'])) {
+        return $fail('Data file tidak valid.');
+    }
+    switch ($file['error']) {
+        case UPLOAD_ERR_OK:
+            break;
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            return $fail('Ukuran file melebihi batas yang diperbolehkan (maksimal 2MB).');
+        case UPLOAD_ERR_NO_FILE:
+            return $fail('File tidak ditemukan.');
+        case UPLOAD_ERR_PARTIAL:
+            return $fail('File hanya terunggah sebagian. Silakan coba lagi.');
+        default:
+            return $fail('Gagal mengunggah file (kode error: ' . $file['error'] . ').');
+    }
+
+    // 2. Ukuran
+    if (!isset($file['size']) || (int) $file['size'] <= 0) {
+        return $fail('File kosong.');
+    }
+    if ((int) $file['size'] > $maxBytes) {
+        return $fail('Ukuran file melebihi ' . round($maxBytes / 1048576, 1) . 'MB.');
+    }
+
+    // 3. Ekstensi (whitelist)
+    $ext = strtolower(pathinfo((string) $file['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, $allowedExt, true)) {
+        return $fail('Format file tidak diizinkan. Gunakan: ' . implode(', ', $allowedExt) . '.');
+    }
+
+    // 4. MIME asli file (bukan dari header browser)
+    $mimeMap = [
+        'jpg'  => ['image/jpeg'],
+        'jpeg' => ['image/jpeg'],
+        'png'  => ['image/png'],
+    ];
+    $mime = null;
+    if (function_exists('finfo_open')) {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        if ($finfo !== false) {
+            $mime = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        }
+    }
+    if ($mime !== null && !in_array($mime, $mimeMap[$ext] ?? [$mime], true)) {
+        return $fail('Isi file tidak sesuai dengan formatnya (kemungkinan percobaan menyisipkan kode berbahaya).');
+    }
+
+    // 5. Pastikan benar-benar gambar yang valid
+    if (@getimagesize($file['tmp_name']) === false) {
+        return $fail('File bukan gambar yang valid atau sudah rusak.');
+    }
+
+    return ['ok' => true, 'error' => null, 'ext' => $ext];
+}
+
+/**
+ * Buat nama file acak yang aman (mencegah path traversal & tabrakan nama).
+ */
+function safe_upload_name(string $originalName, string $ext): string
+{
+    $base = pathinfo((string) $originalName, PATHINFO_FILENAME);
+    $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', (string) $base));
+    $slug = trim((string) $slug, '-');
+    if ($slug === '') {
+        $slug = 'file';
+    }
+    return substr($slug, 0, 40) . '-' . bin2hex(random_bytes(8)) . '.' . $ext;
+}

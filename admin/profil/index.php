@@ -23,7 +23,7 @@ try {
 
 if (!$profil) {
     set_flash_message('danger', 'Data akun tidak ditemukan.');
-    redirect(url('auth/logout.php'));
+    redirect(url('auth/logout.php') . '?csrf_token=' . urlencode(csrf_token()));
     exit;
 }
 
