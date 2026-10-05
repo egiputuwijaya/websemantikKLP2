@@ -6,13 +6,56 @@
  * ============================================================
  */
 
-// Basis URL proyek di web server (Laragon).
-// Contoh: http://localhost/websemantikKLP2/ → '/websemantikKLP2'
-// Ubah sesuai lingkungan deploy jika berbeda.
-define('BASE_URL', '/websemantikKLP2');
-
 // Path root proyek di server file (untuk upload, include, dll.)
 define('APP_ROOT', dirname(__DIR__));
+
+// Path absolut project (dipakai untuk deteksi BASE_URL di berbagai hosting)
+define('APP_ROOT_REAL', realpath(APP_ROOT) ?: APP_ROOT);
+
+// Basis URL proyek di web server.
+//
+// Dulu di-hardcode '/websemantikKLP2' (khas Laragon). Itu bermasalah
+// ketika di-hosting di domain lain (mis. InfinityFree) karena path
+// aplikasi bisa jadi '/' (root domain) atau '/subfolder'.
+//
+// Urutan prioritas:
+//   1. Environment variable APP_BASE_URL (kalau diisi manual)
+//   2. Deteksi otomatis: selisih DOCUMENT_ROOT server dengan folder project
+//   3. Fallback ke nama folder project
+$appBaseUrl = detect_base_url();
+define('BASE_URL', $appBaseUrl);
+
+/**
+ * Deteksi basis URL aplikasi secara otomatis.
+ * Contoh hasil: '/websemantikKLP2' (Laragon) atau '' (hosting di root).
+ */
+function detect_base_url(): string
+{
+    // 1. Override manual via environment variable
+    $fromEnv = getenv('APP_BASE_URL');
+    if (is_string($fromEnv) && trim($fromEnv) !== '') {
+        return rtrim(trim($fromEnv), '/');
+    }
+
+    // 2. Bandingkan DOCUMENT_ROOT server dengan folder project
+    $docRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+    if (is_string($docRoot) && $docRoot !== '' && APP_ROOT_REAL !== '') {
+        $doc  = rtrim(str_replace('\\', '/', $docRoot), '/');
+        $root = rtrim(str_replace('\\', '/', APP_ROOT_REAL), '/');
+
+        // Normalisasi huruf besar (Windows tidak case-sensitive)
+        if (strcasecmp($doc, $root) === 0) {
+            return ''; // aplikasi berada tepat di root domain
+        }
+        if (stripos($root . '/', $doc . '/') === 0) {
+            $base = substr($root, strlen($doc));      // mis. '/websemantikKLP2'
+            return rtrim($base, '/');
+        }
+    }
+
+    // 3. Fallback: pakai nama folder project
+    return '/' . basename(APP_ROOT_REAL);
+}
 
 // Informasi aplikasi global
 define('APP_NAME', 'SIM Mahasiswa UMB');
@@ -21,8 +64,16 @@ define('UNIVERSITY_SHORT', 'UMB');
 
 // ---------- Environment ----------
 // 'development' → tampilkan error (memudahkan debugging)
-// 'production'  → sembunyikan error dari user (WAJIB saat deploy)
-define('APP_ENV', getenv('APP_ENV') ?: 'development');
+// 'production'  → sembunyikan error dari user (Wajib saat deploy)
+//
+// Deteksi otomatis: localhost / .test → development,
+// sedangkan domain sungguhan (hosting) → production.
+// Override manual dengan environment variable APP_ENV.
+$appHost = strtolower(explode(':', (string) ($_SERVER['HTTP_HOST'] ?? ''))[0]);
+$isLocal = in_array($appHost, ['localhost', '127.0.0.1', '::1', ''], true)
+    || substr($appHost, -5) === '.test'
+    || substr($appHost, -10) === '.localhost';
+define('APP_ENV', getenv('APP_ENV') ?: ($isLocal ? 'development' : 'production'));
 
 // Zona waktu
 date_default_timezone_set('Asia/Jakarta');
@@ -89,10 +140,31 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 /**
- * Helper global: membangun URL absolut dari path relatif terhadap BASE_URL
+ * Helper global: membangun URL absolut dari path relatif terhadap BASE_URL.
+ *
+ * Aman untuk BASE_URL kosong (aplikasi di root domain):
+ *   BASE_URL = ''       → url('auth/login.php')        = '/auth/login.php'
+ *   BASE_URL = '/sub'   → url('auth/login.php')        = '/sub/auth/login.php'
  */
 function url(string $path = ''): string
 {
+    $base = rtrim((string) BASE_URL, '/');
     $path = ltrim($path, '/');
-    return rtrim(BASE_URL, '/') . '/' . $path;
+
+    if ($path === '') {
+        return $base === '' ? '/' : $base;
+    }
+    return $base . '/' . $path;
+}
+
+/**
+ * Helper: atribut URL aset (gambar, CSS, JS) dengan cache-busting ringan
+ * agar browser tidak memakai file lama setelah di-upload ulang.
+ */
+function asset(string $path): string
+{
+    $full = url($path);
+    $file = APP_ROOT . '/' . ltrim($path, '/');
+    $ver  = is_file($file) ? substr((string) filemtime($file), -6) : '';
+    return $ver === '' ? $full : $full . '?v=' . $ver;
 }

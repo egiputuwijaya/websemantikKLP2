@@ -8,11 +8,22 @@
  */
 
 // ---------- Kredensial koneksi ----------
-$DB_HOST = '127.0.0.1';
-$DB_NAME = 'sim_mahasiswa';
-$DB_USER = 'root';
-$DB_PASS = '';          // Laragon default: password kosong
-$DB_PORT = '3306';
+//
+// Nilai di bawah adalah default LOKAL (Laragon). Untuk hosting online
+// (mis. InfinityFree / cPanel), isi environment variable berikut di server
+// atau langsung ubah nilainya di sini:
+//
+//   DB_HOST  = sqlXXX.infinityfreeapp.com   (bukan 127.0.0.1!)
+//   DB_USER  = nama akun hosting
+//   DB_PASS  = password dari control panel
+//   DB_NAME  = nama database
+//
+// Prioritas: environment variable > nilai default di bawah.
+$DB_HOST = getenv('DB_HOST') ?: '127.0.0.1';
+$DB_NAME = getenv('DB_NAME') ?: 'sim_mahasiswa';
+$DB_USER = getenv('DB_USER') ?: 'root';
+$DB_PASS = getenv('DB_PASS') !== false ? (string) getenv('DB_PASS') : '';
+$DB_PORT = getenv('DB_PORT') ?: '3306';
 $DB_CHARSET = 'utf8mb4';
 
 // ---------- DSN ----------

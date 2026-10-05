@@ -29,7 +29,7 @@ if (!isset($pageDesc)) {
     <title><?= htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8') ?></title>
 
     <!-- Favicon (opsional) -->
-    <link rel="icon" type="image/png" href="<?= url('assets/images/favicon.png') ?>">
+    <link rel="icon" type="image/png" href="<?= url('assets/logoumb.png') ?>">
 
     <!-- Google Fonts: Inter + Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

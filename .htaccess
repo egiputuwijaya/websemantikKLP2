@@ -1,3 +1,64 @@
-Options -Indexes
+# ============================================================
+#  .htaccess — Hardening root SIM Mahasiswa UMB
+# ============================================================
+#  CATATAN PENTING UNTUK HOSTING (InfinityFree / cPanel / VPS):
+#  Directive di bawah dibungkus <IfModule> agar aman di server yang
+#  tidak memakai mod_php (PHP-FPM) maupun tidak punya mod_headers.
+#  Semua proteksi utama tetap dikirim dari sisi PHP (config/app.php),
+#  jadi file ini hanya lapisan tambahan.
+# ============================================================
 
+# ---------- 1. Matikan directory listing ----------
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# ---------- 2. Halaman default ----------
 DirectoryIndex index.php index.html
+
+# ---------- 3. Blokir akses ke file sensitif ----------
+# Mencegah download dump database (berisi password_hash), dokumentasi,
+# dan file konfigurasi project melalui browser.
+<FilesMatch "\.(sql|md|txt|log|ini|lock|json|yml|yaml|bak|old|sql\.gz)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- 4. Blokir file tersembunyi & .htaccess ----------
+<FilesMatch "^\.|\.(env|htaccess|htpasswd)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
+# ---------- 5. Cegah eksekusi script di dalam folder upload ----------
+# (juga diatur di uploads/.htaccess sebagai lapisan pertahanan kedua;
+#  <Directory> TIDAK boleh dipakai di .htaccess karena hanya valid
+#  untuk konfigurasi server, sehingga akan memicu error 500 di hosting.)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^uploads/.*\.(php|php3|php4|php5|php7|php8|phtml|phar|cgi|pl|py|sh)$ - [F,L]
+</IfModule>
+
+# ---------- 6. Header keamanan (duplikat dari sisi PHP, aman jika modul ada) ----------
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ---------- 7. Blokir akses ke folder internal (config, app) ----------
+# Mengizinkan prefix/subfolder apa pun, jadi aman baik di root domain
+# maupun aplikasi yang berada di dalam subfolder.
+RedirectMatch 404 ^.*/(config|app)/.*$
+
+# ---------- 8. Matikan TRACE (sql injection via HTTP TRACE) ----------
+<IfModule mod_trace.c>
+    TraceEnable Off
+</IfModule>

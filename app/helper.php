@@ -41,9 +41,10 @@ function sanitize($data)
  */
 function redirect(string $url): void
 {
-    // Jika path relatif tanpa skema, bangun dari BASE_URL
+    // Path relatif tanpa skema → bangun dari BASE_URL.
+    // BASE_URL boleh kosong (aplikasi di root domain hosting).
     if ($url !== '' && $url[0] !== '/' && stripos($url, 'http') !== 0) {
-        $url = rtrim(BASE_URL, '/') . '/' . ltrim($url, '/');
+        $url = url($url);
     }
     if (!headers_sent()) {
         header('Location: ' . $url, true, 302);
@@ -177,7 +178,7 @@ function csrf_verify(): void
         set_flash_message('danger', 'Permintaan ditolak: token keamanan tidak valid atau sudah kedaluwarsa. Silakan coba lagi.');
 
         // Kembali ke halaman asal hanya jika masih satu domain
-        $back = BASE_URL;
+        $back = BASE_URL !== '' ? BASE_URL : '/';
         if (!empty($_SERVER['HTTP_REFERER'])) {
             $refHost = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
             if ($refHost !== null && $refHost === ($_SERVER['HTTP_HOST'] ?? '')) {
